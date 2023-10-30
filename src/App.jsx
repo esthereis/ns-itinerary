@@ -1,45 +1,13 @@
 import { useState } from 'react';
 import './App.css';
 import Card from './components/Card';
-import nsApi from './api/nsApi';
 import Datalist from './components/Datalist';
 
 import { BsArrowDownUp } from 'react-icons/bs';
 
 function App() {
-  // const [apiResponse, setApiResponse] = useState(null);
   const [origin, setOrigin] = useState('');
   const [destiny, setDestiny] = useState('');
-
-  async function getData() {
-    try {
-      const response = await nsApi.get();
-      // // setApiResponse(response);
-
-      // const uniqueStationCodes = Object.keys(response.data).reduce(
-      //   (acc, cur) => {
-      //     const station = response.data[cur];
-      //     Object.keys(station).forEach(stationCode => {
-      //       if (!acc.includes(station[stationCode].stationCode)) {
-      //         acc.push(station[stationCode].stationCode);
-      //       }
-      //     });
-      //     return acc;
-      //   },
-      //   []
-      // );
-
-      if (response.status !== 200) {
-        throw new Error('API Request Error!');
-      }
-    } catch (error) {
-      console.error('Error', error);
-    }
-  }
-
-  getData();
-
-  function filterStation() {}
 
   return (
     <>
@@ -47,7 +15,7 @@ function App() {
         <div className='destinyContainer'>
           <div>
             <input
-              list='dataList'
+              list='originList'
               id='fromInput'
               type='text'
               placeholder='From: '
@@ -56,16 +24,17 @@ function App() {
               }}
               value={origin ?? ''}
             />
+            <Datalist searchTerm={origin} id={'originList'} />
 
             <input
-              list='dataList'
+              list='destinyList'
               id='toInput'
               type='text'
               placeholder='To:'
               onChange={event => setDestiny(event.target.value)}
               value={destiny ?? ''}
             />
-            <Datalist />
+            <Datalist searchTerm={destiny} id={'destinyList'} />
 
             <BsArrowDownUp />
           </div>
