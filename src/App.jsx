@@ -1,13 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Card from './components/Card';
 import Datalist from './components/Datalist';
+import { getTripData } from './services/tripsApi';
 
 import { BsArrowDownUp } from 'react-icons/bs';
 
 function App() {
   const [origin, setOrigin] = useState('');
   const [destiny, setDestiny] = useState('');
+  const [code, setCode] = useState({ originCode: '', destinyCode: '' });
+
+  // useEffect(() => {
+  //   if (!code) {
+  //     console.log('Could not recieve data');
+  //     return;
+  //   }
+  //   getTripData(code.originCode, code.destinyCode).then(response =>
+  //     console.log(response)
+  //   );
+  // }, [code]);
+
+  // console.log(code);
 
   return (
     <>
@@ -24,7 +38,13 @@ function App() {
               }}
               value={origin ?? ''}
             />
-            <Datalist searchTerm={origin} id={'originList'} />
+            <Datalist
+              searchTerm={origin}
+              id={'originList'}
+              onSelectedCode={code =>
+                setCode({ originCode: code, destinyCode: '' })
+              }
+            />
 
             <input
               list='destinyList'
@@ -34,7 +54,13 @@ function App() {
               onChange={event => setDestiny(event.target.value)}
               value={destiny ?? ''}
             />
-            <Datalist searchTerm={destiny} id={'destinyList'} />
+            <Datalist
+              searchTerm={destiny}
+              id={'destinyList'}
+              onSelectedCode={code =>
+                setCode({ originCode: '', destinyCode: code })
+              }
+            />
 
             <BsArrowDownUp />
           </div>
