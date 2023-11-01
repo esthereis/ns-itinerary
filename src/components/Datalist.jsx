@@ -16,7 +16,7 @@ function Datalist({ id, searchTerm }) {
 	return (
 		<datalist id={id}>
 			{stationList.map((station) => (
-				<option key={station.extra.code} value={station.name} />
+				<option key={station.UICCode} value={station.namen.lang} />
 			))}
 		</datalist>
 	);

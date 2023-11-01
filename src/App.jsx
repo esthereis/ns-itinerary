@@ -1,45 +1,26 @@
 import { useState } from 'react';
 import './App.css';
 import Card from './components/Card';
-import Datalist from './components/Datalist';
 
 import { BsArrowDownUp } from 'react-icons/bs';
+import { Autocomplete } from './components/Autocomplete';
 
 function App() {
-	const [origin, setOrigin] = useState('');
-	const [destiny, setDestiny] = useState('');
+	const [origin, setOrigin] = useState();
+	const [destiny, setDestiny] = useState();
 
 	return (
 		<>
 			<div className='container'>
-				<div className='destinyContainer'>
-					<div>
-						<input
-							list='origin'
-							id='fromInput'
-							type='text'
-							placeholder='From: '
-							onChange={(event) => {
-								setOrigin(event.target.value);
-							}}
-							value={origin ?? ''}
-						/>
-						<Datalist id='origin' searchTerm={origin} />
+				<div className='card'>
+					<div className='search-container'>
+						<Autocomplete placeholder='From:' onSelect={(value) => setOrigin(value)} />
+						<Autocomplete placeholder='To:' onSelect={(value) => setDestiny(value)} />
 
-						<input
-							list='destiny'
-							id='toInput'
-							type='text'
-							placeholder='To:'
-							onChange={(event) => setDestiny(event.target.value)}
-							value={destiny ?? ''}
-						/>
-						<Datalist id='destiny' searchTerm={destiny} />
-
-						<BsArrowDownUp />
+						<BsArrowDownUp className='icon' />
 					</div>
 
-					<div>
+					<div className='search-container'>
 						<label htmlFor='timeInput'>Departure Time:</label>
 						<input id='timeInput' type='time' />
 					</div>
