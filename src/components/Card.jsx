@@ -2,7 +2,7 @@ import '../App.css';
 
 function Card() {
   return (
-    <div className='cardContainer'>
+    <div className='card'>
       <span>00:00</span>
       <span>00:00</span>
 

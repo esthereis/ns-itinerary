@@ -1,74 +1,36 @@
-import { useEffect, useState } from 'react';
 import './App.css';
-import Card from './components/Card';
-import Datalist from './components/Datalist';
-import { getTripData } from './services/tripsApi';
+import { useState } from 'react';
 
+import Card from './components/Card';
 import { BsArrowDownUp } from 'react-icons/bs';
+import Autocomplete from './components/Autocomplete';
+import Time from './components/Time';
 
 function App() {
   const [origin, setOrigin] = useState('');
   const [destiny, setDestiny] = useState('');
-  const [code, setCode] = useState({ originCode: '', destinyCode: '' });
 
-  // useEffect(() => {
-  //   if (!code) {
-  //     console.log('Could not recieve data');
-  //     return;
-  //   }
-  //   getTripData(code.originCode, code.destinyCode).then(response =>
-  //     console.log(response)
-  //   );
-  // }, [code]);
-
-  // console.log(code);
+  console.log(origin, destiny);
 
   return (
     <>
       <div className='container'>
-        <div className='destinyContainer'>
-          <div>
-            <input
-              list='originList'
-              id='fromInput'
-              type='text'
-              placeholder='From: '
-              onChange={event => {
-                setOrigin(event.target.value);
-              }}
-              value={origin ?? ''}
-            />
-            <Datalist
-              searchTerm={origin}
-              id={'originList'}
-              onSelectedCode={code =>
-                setCode({ originCode: code, destinyCode: '' })
-              }
+        <div className='card'>
+          <div className='search-container'>
+            <Autocomplete
+              placeholder='From:'
+              onSelect={station => setOrigin(station)}
             />
 
-            <input
-              list='destinyList'
-              id='toInput'
-              type='text'
+            <Autocomplete
               placeholder='To:'
-              onChange={event => setDestiny(event.target.value)}
-              value={destiny ?? ''}
-            />
-            <Datalist
-              searchTerm={destiny}
-              id={'destinyList'}
-              onSelectedCode={code =>
-                setCode({ originCode: '', destinyCode: code })
-              }
+              onSelect={station => setDestiny(station)}
             />
 
-            <BsArrowDownUp />
+            <BsArrowDownUp className='icon' />
           </div>
 
-          <div>
-            <label htmlFor='timeInput'>Departure Time:</label>
-            <input id='timeInput' type='time' />
-          </div>
+          <Time />
         </div>
 
         <Card />
