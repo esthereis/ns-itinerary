@@ -18,8 +18,6 @@ function Time() {
     return defaultTime;
   }, [dateTime]);
 
-  console.log(dateTime);
-
   return (
     <div>
       <input
