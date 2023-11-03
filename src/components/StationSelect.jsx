@@ -1,6 +1,6 @@
 import { func, string } from 'prop-types';
 import { useEffect, useState } from 'react';
-import { getStationInfo } from '../services/station';
+import { getStationInfo } from '../services/travel';
 import './stationSelect.css';
 
 export function StationSelect({ placeholder, onSelect }) {
