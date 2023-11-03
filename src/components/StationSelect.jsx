@@ -1,9 +1,9 @@
 import { func, string } from 'prop-types';
 import { useEffect, useState } from 'react';
 import { getStationInfo } from '../services/station';
-import './autocomplete.css';
+import './stationSelect.css';
 
-export function Autocomplete({ placeholder, onSelect }) {
+export function StationSelect({ placeholder, onSelect }) {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [searchable, setSearchable] = useState(false);
 	const [stationList, setStationList] = useState(() => []);
@@ -48,7 +48,7 @@ export function Autocomplete({ placeholder, onSelect }) {
 	);
 }
 
-Autocomplete.propTypes = {
+StationSelect.propTypes = {
 	placeholder: string.isRequired,
 	onSelect: func.isRequired,
 };
