@@ -1,28 +1,44 @@
 import './App.css';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { getTripData } from './services/travel';
 
 import Card from './components/Card';
 import { BsArrowDownUp } from 'react-icons/bs';
-import Autocomplete from './components/Autocomplete';
-import Time from './components/Time';
+import StationSelection from './components/StationSelection';
+import DatePicker from './components/DatePicker';
+import ButtonGroup from './components/ButtonGroup';
 
 function App() {
-  const [origin, setOrigin] = useState('');
-  const [destiny, setDestiny] = useState('');
+  const [origin, setOrigin] = useState(() => '');
+  const [destiny, setDestiny] = useState(() => '');
+  const [dateTime, setDateTime] = useState(() => undefined);
+  const [route, setRoute] = useState(() => 'departure');
+  const [trip, setTrip] = useState(() => undefined);
 
-  console.log(origin, destiny);
+  console.log(trip);
+
+  const planJourney = useCallback(async () => {
+    const date = dateTime.toISOString();
+    const response = await getTripData({
+      origin,
+      destiny,
+      date,
+      route
+    });
+    setTrip(response);
+  }, [origin, destiny, dateTime, route]);
 
   return (
     <>
       <div className='container'>
         <div className='card'>
           <div className='search-container'>
-            <Autocomplete
+            <StationSelection
               placeholder='From:'
               onSelect={station => setOrigin(station)}
             />
 
-            <Autocomplete
+            <StationSelection
               placeholder='To:'
               onSelect={station => setDestiny(station)}
             />
@@ -30,7 +46,32 @@ function App() {
             <BsArrowDownUp className='icon' />
           </div>
 
-          <Time />
+          <ButtonGroup
+            value={route}
+            options={[
+              { name: 'Departure', value: 'departure' },
+              { name: 'Arrival', value: 'arrival' }
+            ]}
+            onSelect={option => {
+              setRoute(option);
+            }}
+          />
+
+          <DatePicker
+            onDateChange={date => {
+              setDateTime(date);
+            }}
+          />
+
+          <button
+            type='button'
+            className='button'
+            onClick={() => {
+              planJourney();
+            }}
+          >
+            Plan Your Trip
+          </button>
         </div>
 
         <Card />

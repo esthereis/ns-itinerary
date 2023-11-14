@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { func, string } from 'prop-types';
-import './autocomplete.css';
+import './stationSelect.css';
 
-import { getTrainInformation } from '../services/trainStopsApi';
+import { getTrainInformation } from '../services/travel';
 
-function Autocomplete({ placeholder, onSelect }) {
+function StationSelection({ placeholder, onSelect }) {
   const [searchTerm, setSearchTerm] = useState(() => '');
   const [stationList, setStationList] = useState(() => []);
-  const [searchable, setSearchable] = useState(false);
+  const [searchable, setSearchable] = useState(() => false);
 
   useEffect(() => {
     if (!searchTerm && searchTerm < 2) {
@@ -49,9 +49,9 @@ function Autocomplete({ placeholder, onSelect }) {
   );
 }
 
-export default Autocomplete;
+export default StationSelection;
 
-Autocomplete.propTypes = {
+StationSelection.propTypes = {
   placeholder: string.isRequired,
   onSelect: func.isRequired
 };
