@@ -15,22 +15,6 @@ function App() {
   const [route, setRoute] = useState(() => 'departure');
   const [trip, setTrip] = useState(() => undefined);
 
-  function getItinerary(itinerary, path) {
-    console.log(itinerary.legs);
-    if (path === 'departure') {
-      const [, time] = itinerary.legs[0].origin.plannedDateTime.split('T');
-      return time;
-    }
-
-    if (path === 'arrival') {
-      const length = itinerary.legs.length;
-
-      const [, time] =
-        itinerary.legs[length - 1].destination.plannedDateTime.split('T');
-      return time;
-    }
-  }
-
   const planJourney = useCallback(async () => {
     const date = dateTime.toISOString();
     const response = await getTripData({
@@ -89,15 +73,11 @@ function App() {
         </div>
       </div>
 
-      {trip?.map(itinerary => (
-        <TripCard
-          key={itinerary.checksum}
-          departure={getItinerary(itinerary, 'departure')}
-          arrival={getItinerary(itinerary, 'arrival')}
-        />
-      ))}
-
-      <TripCard />
+      <div className='itinerary-container'>
+        {trip?.map(itinerary => (
+          <TripCard key={itinerary.checksum} path={itinerary} />
+        ))}
+      </div>
     </div>
   );
 }
