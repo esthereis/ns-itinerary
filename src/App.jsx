@@ -2,7 +2,7 @@ import './App.css';
 import { useCallback, useState } from 'react';
 import { getTripData } from './services/travel';
 
-import Card from './components/Card';
+import TripCard from './components/TripCard';
 import { BsArrowDownUp } from 'react-icons/bs';
 import StationSelection from './components/StationSelection';
 import DatePicker from './components/DatePicker';
@@ -15,7 +15,21 @@ function App() {
   const [route, setRoute] = useState(() => 'departure');
   const [trip, setTrip] = useState(() => undefined);
 
-  console.log(trip);
+  function getItinerary(itinerary, path) {
+    console.log(itinerary.legs);
+    if (path === 'departure') {
+      const [, time] = itinerary.legs[0].origin.plannedDateTime.split('T');
+      return time;
+    }
+
+    if (path === 'arrival') {
+      const length = itinerary.legs.length;
+
+      const [, time] =
+        itinerary.legs[length - 1].destination.plannedDateTime.split('T');
+      return time;
+    }
+  }
 
   const planJourney = useCallback(async () => {
     const date = dateTime.toISOString();
@@ -29,7 +43,7 @@ function App() {
   }, [origin, destiny, dateTime, route]);
 
   return (
-    <>
+    <div className='page'>
       <div className='container'>
         <div className='card'>
           <div className='search-container'>
@@ -73,10 +87,18 @@ function App() {
             Plan Your Trip
           </button>
         </div>
-
-        <Card />
       </div>
-    </>
+
+      {trip?.map(itinerary => (
+        <TripCard
+          key={itinerary.checksum}
+          departure={getItinerary(itinerary, 'departure')}
+          arrival={getItinerary(itinerary, 'arrival')}
+        />
+      ))}
+
+      <TripCard />
+    </div>
   );
 }
 

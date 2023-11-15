@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 
+.page {
+  display: flex;
+  flex-direction: row;
+}
+
 .container {
   background-color: #1e1636;
   color: #f2f2f2;
@@ -7,14 +12,13 @@
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
 
   height: 100vh;
+  width: fit-content;
+  padding: 2rem 2rem 0 2rem;
 }
 
 .search-container,

@@ -25,7 +25,6 @@ export async function getTrainInformation(searchedItem) {
 }
 
 export async function getTripData({ origin, destiny, date, route }) {
-  console.log(origin, destiny, date, route);
   const response = await axios.get(
     `${baseUrl}/reisinformatie-api/api/v3/trips`,
     {

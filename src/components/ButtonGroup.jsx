@@ -8,7 +8,6 @@ function ButtonGroup({ options, value, onSelect }) {
         <button
           type='button'
           key={option.value}
-          // className='button'
           className={`button ${
             value === option.value ? 'selected' : undefined
           }`}
