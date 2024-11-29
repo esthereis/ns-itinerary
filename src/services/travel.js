@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const baseUrl = 'https://gateway.apiportal.ns.nl';
+const baseUrl = "https://gateway.apiportal.ns.nl";
 const apiKey = import.meta.env.VITE_API_KEY;
 
 export async function getTrainInformation(searchedItem) {
@@ -9,14 +9,14 @@ export async function getTrainInformation(searchedItem) {
       `${baseUrl}/reisinformatie-api/api/v2/stations`,
       {
         headers: {
-          'x-caller-id': apiKey,
-          'Cache-control': 'no-cache',
-          'Ocp-Apim-Subscription-Key': apiKey
+          "x-caller-id": apiKey,
+          "Cache-control": "no-cache",
+          "Ocp-Apim-Subscription-Key": apiKey,
         },
         params: {
           q: searchedItem,
-          limit: 10
-        }
+          limit: 10,
+        },
       }
     );
 
@@ -29,18 +29,19 @@ export async function getTripData({ origin, destiny, date, route }) {
     `${baseUrl}/reisinformatie-api/api/v3/trips`,
     {
       headers: {
-        'Cache-Control': 'no-cache',
-        'Ocp-Apim-Subscription-Key': apiKey
+        "Cache-Control": "no-cache",
+        "Ocp-Apim-Subscription-Key": apiKey,
       },
       params: {
         originUicCode: origin.UICCode,
         destinationUicCode: destiny.UICCode,
         dateTime: date,
-        departure: route === 'departure',
-        arrival: route === 'arrival'
-      }
+        departure: route === "departure",
+        arrival: route === "arrival",
+      },
     }
   );
+  console.log("is working");
 
   return response.data.trips;
 }
