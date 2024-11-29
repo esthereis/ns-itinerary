@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
 
 .page {
   display: flex;
@@ -6,10 +6,17 @@
 }
 
 .container {
-  background-color: #1e1636;
+  background-image: linear-gradient(
+    to right top,
+    #0e0a1a,
+    #0c0817,
+    #090514,
+    #070311,
+    #04010d
+  );
   color: #f2f2f2;
 
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
 
   align-items: center;
