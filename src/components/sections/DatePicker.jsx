@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
-import { func } from 'prop-types';
-import '../App.css';
+import { useEffect, useMemo, useState } from "react";
+import { func } from "prop-types";
+import buttonStyles from "../../styles/ToggleButton.module.css";
+import styles from "../../styles/DatePicker.module.css";
 
 function DatePicker({ onDateChange }) {
   const [dateTime, setDateTime] = useState(new Date());
@@ -10,11 +11,11 @@ function DatePicker({ onDateChange }) {
   }, [dateTime, onDateChange]);
 
   const { date, time } = useMemo(() => {
-    const [currentDay] = dateTime.toISOString().split('T');
+    const [currentDay] = dateTime.toISOString().split("T");
 
     const currentHour = dateTime.toLocaleString(navigator.language, {
-      hour: '2-digit',
-      minute: '2-digit'
+      hour: "2-digit",
+      minute: "2-digit",
     });
 
     const defaultTime = { date: currentDay, time: currentHour };
@@ -22,33 +23,34 @@ function DatePicker({ onDateChange }) {
   }, [dateTime]);
 
   function updateDate(value) {
-    setDateTime(previous => {
-      const [, time] = previous.toISOString().split('T');
+    setDateTime((previous) => {
+      const [, time] = previous.toISOString().split("T");
       return new Date(`${value}T${time}`);
     });
   }
 
   function updateTime(value) {
-    setDateTime(previous => {
-      const [date] = previous.toISOString().split('T');
+    setDateTime((previous) => {
+      const [date] = previous.toISOString().split("T");
       return new Date(`${date},${value}`);
     });
   }
 
   return (
-    <div className='date-pickers'>
+    <div className={styles.datePicker}>
       <input
-        className='button'
-        type='date'
-        onChange={event => {
+        className={buttonStyles.button}
+        type="date"
+        onChange={(event) => {
           updateDate(event.target.value);
         }}
         value={date}
       />
+
       <input
-        className='button'
-        type='time'
-        onChange={event => {
+        className={buttonStyles.button}
+        type="time"
+        onChange={(event) => {
           updateTime(event.target.value);
         }}
         value={time}
@@ -60,5 +62,5 @@ function DatePicker({ onDateChange }) {
 export default DatePicker;
 
 DatePicker.propTypes = {
-  onDateChange: func
+  onDateChange: func,
 };

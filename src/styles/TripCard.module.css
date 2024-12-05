@@ -1,4 +1,4 @@
-.itinerary-container {
+.itineraryContainer {
   background-color: #f2f2f2;
   width: 100vw;
 
@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-.trip-card {
+.tripCard {
   display: flex;
   flex-direction: column;
   justify-content: center;

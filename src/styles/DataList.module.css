@@ -1,16 +1,3 @@
-.autocomplete {
-  position: relative;
-}
-
-.input {
-  background: #f2f2f2;
-
-  border: 1px solid black;
-  border-radius: 0.8rem;
-  padding: 0.8rem;
-  width: 12rem;
-}
-
 .data-list {
   position: absolute;
   background-color: #f2f2f2;

@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
-import { func, string } from 'prop-types';
-import './stationSelect.css';
+import { useState, useEffect } from "react";
+import { func, string } from "prop-types";
+import { getTrainInformation } from "../services/travel";
+import styles from "../styles/Input.module.css";
 
-import { getTrainInformation } from '../services/travel';
-
-function StationSelection({ placeholder, onSelect }) {
-  const [searchTerm, setSearchTerm] = useState(() => '');
+export default function Input({ placeholder, onSelect }) {
+  const [searchTerm, setSearchTerm] = useState(() => "");
   const [stationList, setStationList] = useState(() => []);
   const [searchable, setSearchable] = useState(() => false);
 
@@ -13,25 +12,25 @@ function StationSelection({ placeholder, onSelect }) {
     if (!searchTerm && searchTerm < 2) {
       return;
     }
-    getTrainInformation(searchTerm).then(data => setStationList(data));
+    getTrainInformation(searchTerm).then((data) => setStationList(data));
   }, [searchTerm, searchable]);
 
   return (
-    <div className='autocomplete'>
+    <div>
       <input
-        className='input'
-        type='text'
+        className={styles.input}
+        type="text"
         placeholder={placeholder}
-        onChange={event => {
+        onChange={(event) => {
           setSearchTerm(event.target.value);
           setSearchable(event.target.value.length >= 2);
         }}
-        value={searchTerm ?? ''}
+        value={searchTerm ?? ""}
       />
 
       {searchable && (
-        <ul className='data-list'>
-          {stationList?.map(station => (
+        <ul className="data-list">
+          {stationList?.map((station) => (
             <li
               key={station.UICCode}
               onClick={() => {
@@ -49,9 +48,7 @@ function StationSelection({ placeholder, onSelect }) {
   );
 }
 
-export default StationSelection;
-
-StationSelection.propTypes = {
+Input.propTypes = {
   placeholder: string.isRequired,
-  onSelect: func.isRequired
+  onSelect: func.isRequired,
 };
