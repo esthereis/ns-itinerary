@@ -1,30 +1,19 @@
-import styles from "../../styles/Card.module.css";
-import Input from "../Input";
-import DatePicker from "./DatePicker";
-import ToggleButton from "../ToggleButton";
-import TripCard from "../common/TripCard";
-import buttonStyles from "../../styles/ToggleButton.module.css";
-import { useCallback, useState } from "react";
-import { getTripData } from "../../services/travel";
+import { useContext, useState } from "react";
 import { BsArrowDownUp } from "react-icons/bs";
+import styles from "../../styles/Card.module.css";
+import buttonStyles from "../../styles/ToggleButton.module.css";
+import Input from "../Input";
+import ToggleButton from "../ToggleButton";
+import DatePicker from "./DatePicker";
+import { TripContext } from "./TripContext";
 
 export default function MainCard() {
   const [origin, setOrigin] = useState(() => "");
   const [destiny, setDestiny] = useState(() => "");
   const [dateTime, setDateTime] = useState(() => undefined);
   const [route, setRoute] = useState(() => "departure");
-  // const [trip, setTrip] = useState(() => undefined);
 
-  const planJourney = useCallback(async () => {
-    const date = dateTime.toISOString();
-    const response = await getTripData({
-      origin,
-      destiny,
-      date,
-      route,
-    });
-    setTrip(response);
-  }, [origin, destiny, dateTime, route]);
+  const { planJourney } = useContext(TripContext);
 
   return (
     <>
@@ -63,18 +52,12 @@ export default function MainCard() {
           type="button"
           className={buttonStyles.button}
           onClick={() => {
-            planJourney();
+            planJourney({ origin, destiny, dateTime, route });
           }}
         >
           Plan Your Trip
         </button>
       </div>
-
-      {/* <div className="itinerary-container">
-        {trip?.map((itinerary) => (
-          <TripCard key={itinerary.checksum} path={itinerary} />
-        ))}
-      </div> */}
     </>
   );
 }
