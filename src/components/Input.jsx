@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { func, string } from "prop-types";
 import { getTrainInformation } from "../services/travel";
-import styles from "../styles/Input.module.css";
+import styles from "./Input.module.css";
 
 export default function Input({ placeholder, onSelect }) {
   const [searchTerm, setSearchTerm] = useState(() => "");

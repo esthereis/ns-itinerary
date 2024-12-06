@@ -1,5 +1,5 @@
 import { array, string, func } from "prop-types";
-import styles from "../styles/ToggleButton.module.css";
+import styles from "./ToggleButton.module.css";
 
 export default function ToggleButton({ options, value, onSelect }) {
   return (

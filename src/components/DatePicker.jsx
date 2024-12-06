@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { func } from "prop-types";
-import buttonStyles from "../../styles/ToggleButton.module.css";
-import styles from "../../styles/DatePicker.module.css";
+import buttonStyles from "./ToggleButton.module.css";
+import styles from "./DatePicker.module.css";
 
 function DatePicker({ onDateChange }) {
   const [dateTime, setDateTime] = useState(new Date());

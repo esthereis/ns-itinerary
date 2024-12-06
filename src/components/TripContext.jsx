@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { getTripData } from "../../services/travel";
+import { getTripData } from "../services/travel";
 
 export const TripContext = createContext();
 

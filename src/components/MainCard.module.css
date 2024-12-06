@@ -16,10 +16,15 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem;
+  gap: 12px;
 
-  width: 30%;
+  width: 250px;
   margin-left: auto;
+}
+
+.transition {
+  width: 23vw;
+  transition: width 3s;
 }
 
 .icon {

@@ -1,10 +1,9 @@
 import { object } from "prop-types";
 import { useMemo } from "react";
-import styles from "../../styles/TripCard.module.css";
+import styles from "./TripCard.module.css";
 
 function TripCard({ path }) {
   const [departure, arrival, duration] = useMemo(() => {
-    console.log(path);
     if (!path) {
       return [];
     }
@@ -24,7 +23,6 @@ function TripCard({ path }) {
       <span className={styles.time}>{departure}</span>
       <span>{duration}</span>
       <span className={styles.time}>{arrival}</span>
-      <hr />
     </div>
   );
 }
