@@ -16,7 +16,7 @@ export default function Input({ placeholder, onSelect }) {
   }, [searchTerm, searchable]);
 
   return (
-    <div>
+    <>
       <input
         className={styles.input}
         type="text"
@@ -44,7 +44,7 @@ export default function Input({ placeholder, onSelect }) {
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 }
 

@@ -16,20 +16,11 @@ export default function MainCard() {
   const { planJourney } = useContext(TripContext);
 
   return (
-    <>
-      <div className={styles.card}>
-        <div>
-          <Input
-            placeholder="From:"
-            onSelect={(station) => setOrigin(station)}
-          />
-
-          <BsArrowDownUp className={styles.icon} />
-          <Input
-            placeholder="To:"
-            onSelect={(station) => setDestiny(station)}
-          />
-        </div>
+    <div className={styles.card}>
+      <div className={styles.cardContent}>
+        <Input placeholder="From:" onSelect={(station) => setOrigin(station)} />
+        <BsArrowDownUp className={styles.icon} />
+        <Input placeholder="To:" onSelect={(station) => setDestiny(station)} />
 
         <ToggleButton
           value={route}
@@ -58,6 +49,6 @@ export default function MainCard() {
           Plan Your Trip
         </button>
       </div>
-    </>
+    </div>
   );
 }
