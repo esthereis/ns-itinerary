@@ -41,6 +41,5 @@ export async function getTripData({ origin, destiny, date, route }) {
       },
     }
   );
-
   return response.data.trips;
 }
