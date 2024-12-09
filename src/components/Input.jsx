@@ -4,9 +4,9 @@ import { getTrainInformation } from "../services/travel";
 import styles from "./Input.module.css";
 
 export default function Input({ placeholder, onSelect }) {
-  const [searchTerm, setSearchTerm] = useState(() => "");
-  const [stationList, setStationList] = useState(() => []);
-  const [searchable, setSearchable] = useState(() => false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [stationList, setStationList] = useState([]);
+  const [searchable, setSearchable] = useState(false);
 
   useEffect(() => {
     if (!searchTerm && searchTerm < 2) {
@@ -29,7 +29,7 @@ export default function Input({ placeholder, onSelect }) {
       />
 
       {searchable && (
-        <ul className="data-list">
+        <ul className={styles["data-list"]}>
           {stationList?.map((station) => (
             <li
               key={station.UICCode}

@@ -8,10 +8,10 @@ import DatePicker from "./DatePicker";
 import { TripContext } from "./TripContext";
 
 export default function MainCard() {
-  const [origin, setOrigin] = useState(() => "");
-  const [destiny, setDestiny] = useState(() => "");
-  const [dateTime, setDateTime] = useState(() => undefined);
-  const [route, setRoute] = useState(() => "departure");
+  const [origin, setOrigin] = useState("");
+  const [destiny, setDestiny] = useState("");
+  const [dateTime, setDateTime] = useState(undefined);
+  const [route, setRoute] = useState("departure");
   const [clicked, setClicked] = useState(false);
 
   const { planJourney } = useContext(TripContext);
@@ -19,9 +19,9 @@ export default function MainCard() {
   return (
     <div className={`${styles.card} ${clicked && styles.transition}`}>
       <div className={styles.cardContent}>
-        <Input placeholder="From:" onSelect={(station) => setOrigin(station)} />
+        <Input placeholder="From:" onSelect={setOrigin} />
         <BsArrowDownUp className={styles.icon} />
-        <Input placeholder="To:" onSelect={(station) => setDestiny(station)} />
+        <Input placeholder="To:" onSelect={setDestiny} />
 
         <ToggleButton
           value={route}
