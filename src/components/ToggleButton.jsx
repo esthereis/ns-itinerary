@@ -9,7 +9,7 @@ export default function ToggleButton({ options, value, onSelect }) {
           type="button"
           key={option.value}
           className={`${styles.button} ${
-            value === option.value ? styles.selected : undefined
+            value === option.value ? styles.selected : ""
           }`}
           onClick={() => onSelect(option.value)}
         >
