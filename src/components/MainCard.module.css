@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap");
+
+.card {
+  background-color: #393253;
+
+  display: flex;
+  justify-content: center;
+  padding: 0 3rem;
+
+  width: 55vw;
+  height: 100vh;
+}
+
+.cardContent {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+
+  width: 250px;
+  margin-left: auto;
+}
+
+.transition {
+  width: 23vw;
+  transition: width 3s;
+}
+
+.icon {
+}

@@ -41,7 +41,6 @@ export async function getTripData({ origin, destiny, date, route }) {
       },
     }
   );
-  console.log("is working");
 
   return response.data.trips;
 }
