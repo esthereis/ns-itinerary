@@ -1,18 +1,27 @@
 import { useState, useEffect } from "react";
-import { func, string } from "prop-types";
 import { getTrainInformation } from "../services/travel";
 import styles from "./Input.module.css";
+import { TrainResponse } from "../types/train";
 
-export default function Input({ placeholder, onSelect }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [stationList, setStationList] = useState([]);
+type Props = {
+  placeholder: string;
+  onSelect: (trainCode: string) => void;
+};
+
+export default function Input({ placeholder, onSelect }: Props) {
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [stationList, setStationList] = useState<TrainResponse[] | undefined>(
+    []
+  );
   const [searchable, setSearchable] = useState(false);
 
   useEffect(() => {
-    if (!searchTerm && searchTerm < 2) {
+    if (!searchTerm && searchTerm.length < 2) {
       return;
     }
-    getTrainInformation(searchTerm).then((data) => setStationList(data));
+    getTrainInformation(searchTerm).then((trainResponse) => {
+      setStationList(trainResponse);
+    });
   }, [searchTerm, searchable]);
 
   return (
@@ -32,14 +41,14 @@ export default function Input({ placeholder, onSelect }) {
         <ul className={styles["data-list"]}>
           {stationList?.map((station) => (
             <li
-              key={station.UICCode}
+              key={station.trainCode}
               onClick={() => {
-                setSearchTerm(station.namen.lang);
+                setSearchTerm(station.stationName);
                 setSearchable(false);
-                onSelect(station);
+                onSelect(station.trainCode);
               }}
             >
-              {station.namen.lang}
+              {station.stationName}
             </li>
           ))}
         </ul>
@@ -47,8 +56,3 @@ export default function Input({ placeholder, onSelect }) {
     </>
   );
 }
-
-Input.propTypes = {
-  placeholder: string.isRequired,
-  onSelect: func.isRequired,
-};

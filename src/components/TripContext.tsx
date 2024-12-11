@@ -1,17 +1,22 @@
 import { createContext, useState } from "react";
 import { getTripData } from "../services/travel";
+import { TripParams } from "../types/trip";
 
-export const TripContext = createContext();
+export const TripContext = createContext<TripParams | null>(null);
 
 export default function TripProvider({ children }) {
   const [trip, setTrip] = useState();
 
-  const planJourney = async ({ origin, destiny, dateTime, route }) => {
-    const date = dateTime.toISOString();
+  const planJourney = async ({
+    origin,
+    destiny,
+    dateTime,
+    route,
+  }: TripParams) => {
     const response = await getTripData({
       origin,
       destiny,
-      date,
+      dateTime,
       route,
     });
     setTrip(response);

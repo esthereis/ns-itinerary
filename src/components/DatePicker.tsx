@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { func } from "prop-types";
 import buttonStyles from "./ToggleButton.module.css";
 import styles from "./DatePicker.module.css";
 
-function DatePicker({ onDateChange }) {
+type Props = {
+  onDateChange: (dateTime: Date) => void;
+};
+
+function DatePicker({ onDateChange }: Props) {
   const [dateTime, setDateTime] = useState(new Date());
 
   useEffect(() => {
@@ -22,14 +25,14 @@ function DatePicker({ onDateChange }) {
     return defaultTime;
   }, [dateTime]);
 
-  function updateDate(value) {
+  function updateDate(value: string) {
     setDateTime((previous) => {
       const [, time] = previous.toISOString().split("T");
       return new Date(`${value}T${time}`);
     });
   }
 
-  function updateTime(value) {
+  function updateTime(value: string) {
     setDateTime((previous) => {
       const [date] = previous.toISOString().split("T");
       return new Date(`${date},${value}`);
@@ -60,7 +63,3 @@ function DatePicker({ onDateChange }) {
 }
 
 export default DatePicker;
-
-DatePicker.propTypes = {
-  onDateChange: func,
-};
