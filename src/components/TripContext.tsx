@@ -1,11 +1,22 @@
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { getTripData } from "../services/travel";
 import { TripParams } from "../types/trip";
+import { Trip } from "../types/trip";
+import { Context } from "../types/context";
 
-export const TripContext = createContext<TripParams | null>(null);
+export const TripContext = createContext<Context>({
+  trips: undefined,
+  planJourney: () => {
+    return;
+  },
+});
 
-export default function TripProvider({ children }) {
-  const [trip, setTrip] = useState();
+type Props = {
+  children: ReactNode;
+};
+
+export default function TripProvider({ children }: Props) {
+  const [trips, setTrips] = useState<Trip[]>();
 
   const planJourney = async ({
     origin,
@@ -19,11 +30,11 @@ export default function TripProvider({ children }) {
       dateTime,
       route,
     });
-    setTrip(response);
+    setTrips(response);
   };
 
   return (
-    <TripContext.Provider value={{ trip, planJourney }}>
+    <TripContext.Provider value={{ trips, planJourney }}>
       {children}
     </TripContext.Provider>
   );

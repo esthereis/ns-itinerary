@@ -4,13 +4,14 @@ import { TripContext } from "./TripContext";
 import styles from "./TripList.module.css";
 
 export default function TripList() {
-  const { trip } = useContext(TripContext);
+  const { trips } = useContext(TripContext);
 
   return (
-    <div className={trip && styles["itinerary-container"]}>
-      {trip?.map((itinerary) => (
-        <TripCard key={itinerary.checksum} path={itinerary} />
+    <div className={trips && styles["itinerary-container"]}>
+      {trips?.map((trip) => (
+        <TripCard trip={trip} key={trip.key} />
       ))}
     </div>
   );
 }
+// key={trip.checksum}

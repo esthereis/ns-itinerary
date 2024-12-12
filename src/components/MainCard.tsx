@@ -6,7 +6,7 @@ import Input from "./Input";
 import ToggleButton from "./ToggleButton";
 import DatePicker from "./DatePicker";
 import { TripContext } from "./TripContext";
-import { TripParams } from "../types/trip";
+import { Context } from "../types/context";
 
 export default function MainCard() {
   const [origin, setOrigin] = useState<string>("");
@@ -15,10 +15,7 @@ export default function MainCard() {
   const [route, setRoute] = useState<string>("departure");
   const [clicked, setClicked] = useState<boolean>(false);
 
-  type Props = {
-    planJourney: ({ origin, destiny, dateTime, route }: TripParams) => void;
-  };
-  const { planJourney } = useContext(TripContext) as TripParams;
+  const { planJourney } = useContext(TripContext) as Context;
 
   return (
     <div className={`${styles.card} ${clicked && styles.transition}`}>

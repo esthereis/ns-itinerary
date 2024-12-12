@@ -1,22 +1,23 @@
-import { object } from "prop-types";
 import { useMemo } from "react";
 import styles from "./TripCard.module.css";
+import { Trip } from "../types/trip";
 
-function TripCard({ path }) {
+type Props = {
+  trip: Trip;
+};
+
+function TripCard({ trip }: Props) {
   const [departure, arrival, duration] = useMemo(() => {
-    if (!path) {
+    if (!trip) {
       return [];
     }
-    const length = path.legs.length;
-    const [, departureTime] = path.legs[0].origin.plannedDateTime.split("T");
-    const [, arrivalTime] =
-      path.legs[length - 1].destination.plannedDateTime.split("T");
-
-    const duration = path.actualDurationInMinutes;
+    const [, departureTime] = trip.departureTime.split("T");
+    const [, arrivalTime] = trip.arrivalTime.split("T");
+    const duration = trip.duration;
     // const duration = pathDuration < 30 ? pathDuration : pathDuration / 60;
 
     return [departureTime, arrivalTime, duration];
-  }, [path]);
+  }, [trip]);
 
   return (
     <div className={styles.tripCard}>
@@ -28,7 +29,3 @@ function TripCard({ path }) {
 }
 
 export default TripCard;
-
-TripCard.propTypes = {
-  path: object.isRequired,
-};

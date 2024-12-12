@@ -1,7 +1,8 @@
 import axios from "axios";
 import { TrainApiResponse } from "../types/train";
 import { TrainResponse } from "../types/train";
-import { TripParams } from "../types/trip";
+import { TripParams, TripResponse } from "../types/trip";
+import { Trip } from "../types/trip";
 
 const baseUrl = "https://gateway.apiportal.ns.nl";
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -41,7 +42,7 @@ export async function getTripData({
   destiny,
   dateTime,
   route,
-}: TripParams) {
+}: TripParams): Promise<Trip[]> {
   const response = await axios.get(
     `${baseUrl}/reisinformatie-api/api/v3/trips`,
     {
@@ -52,11 +53,22 @@ export async function getTripData({
       params: {
         originUicCode: origin,
         destinationUicCode: destiny,
-        dateTime: dateTime.toISOString(),
+        dateTime: dateTime,
         departure: route === "departure",
         arrival: route === "arrival",
       },
     }
   );
-  return response.data.trips;
+
+  const normalizedResponse = response.data.trips.map((trip: TripResponse) => {
+    return {
+      key: trip.checksum,
+      length: trip.legs.length,
+      departureTime: trip.legs[0].origin.plannedDateTime,
+      arrivalTime: trip.legs[0].destination.plannedDateTime,
+      duration: trip.actualDurationInMinutes,
+    } as Trip;
+  });
+
+  return normalizedResponse;
 }
