@@ -1,7 +1,18 @@
 import { array, string, func } from "prop-types";
 import styles from "./ToggleButton.module.css";
 
-export default function ToggleButton({ options, value, onSelect }) {
+type Option = {
+  value: string;
+  name: string;
+};
+
+type Props = {
+  options: Option[];
+  value: string;
+  onSelect: (value: string) => void;
+};
+
+export default function ToggleButton({ options, value, onSelect }: Props) {
   return (
     <div className={styles["button-group"]}>
       {options.map((option) => (
