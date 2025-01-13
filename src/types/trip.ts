@@ -7,8 +7,8 @@ export type TripParams = {
 
 export type Trip = {
   key: number;
-  departureTime: Date;
-  arrivalTime: Date;
+  departureTime: Date | string;
+  arrivalTime: Date | string;
   duration: number;
   checksum?: number;
 };
@@ -17,7 +17,7 @@ export type TripResponse = {
   checksum: number;
   actualDurationInMinutes: number;
   legs: {
-    origin: { plannedDateTime: Date };
-    destination: { plannedDateTime: Date };
+    origin: { plannedDateTime: string };
+    destination: { plannedDateTime: string };
   }[];
 };

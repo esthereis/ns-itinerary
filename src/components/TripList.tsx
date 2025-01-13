@@ -14,4 +14,3 @@ export default function TripList() {
     </div>
   );
 }
-// key={trip.checksum}

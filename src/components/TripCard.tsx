@@ -11,10 +11,9 @@ function TripCard({ trip }: Props) {
     if (!trip) {
       return [];
     }
-    const [, departureTime] = trip.departureTime.split("T");
-    const [, arrivalTime] = trip.arrivalTime.split("T");
+    const [, departureTime] = (trip.departureTime as string).split("T");
+    const [, arrivalTime] = (trip.arrivalTime as string).split("T");
     const duration = trip.duration;
-    // const duration = pathDuration < 30 ? pathDuration : pathDuration / 60;
 
     return [departureTime, arrivalTime, duration];
   }, [trip]);
