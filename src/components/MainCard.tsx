@@ -2,26 +2,27 @@ import { useContext, useState } from "react";
 import { BsArrowDownUp } from "react-icons/bs";
 import styles from "./MainCard.module.css";
 import buttonStyles from "./ToggleButton.module.css";
-import Input from "./Input";
+import StationAutocomplete from "./StationAutocomplete";
 import ToggleButton from "./ToggleButton";
 import DatePicker from "./DatePicker";
 import { TripContext } from "./TripContext";
+import { Context } from "../types/context";
 
 export default function MainCard() {
-  const [origin, setOrigin] = useState("");
-  const [destiny, setDestiny] = useState("");
-  const [dateTime, setDateTime] = useState(undefined);
-  const [route, setRoute] = useState("departure");
-  const [clicked, setClicked] = useState(false);
+  const [origin, setOrigin] = useState<string>("");
+  const [destiny, setDestiny] = useState<string>("");
+  const [dateTime, setDateTime] = useState<Date>();
+  const [route, setRoute] = useState<string>("departure");
+  const [clicked, setClicked] = useState<boolean>(false);
 
-  const { planJourney } = useContext(TripContext);
+  const { planJourney } = useContext(TripContext) as Context;
 
   return (
     <div className={`${styles.card} ${clicked && styles.transition}`}>
       <div className={styles.cardContent}>
-        <Input placeholder="From:" onSelect={setOrigin} />
+        <StationAutocomplete placeholder="From:" onSelect={setOrigin} />
         <BsArrowDownUp className={styles.icon} />
-        <Input placeholder="To:" onSelect={setDestiny} />
+        <StationAutocomplete placeholder="To:" onSelect={setDestiny} />
 
         <ToggleButton
           value={route}
