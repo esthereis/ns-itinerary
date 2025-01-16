@@ -3,30 +3,31 @@
 }
 
 .button-group .selected {
-  background-color: #886aee;
+  background-color: #eca0fd;
+  color: black;
 }
 
 .button-group button:first-child {
-  border-top-left-radius: 0.8rem;
-  border-bottom-left-radius: 0.8rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 }
 
 .button-group button:last-child {
-  border-top-right-radius: 0.8rem;
-  border-bottom-right-radius: 0.8rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
 .button {
-  background-color: #c8bcf4;
-  color: #1e1636;
+  background-color: #ffffff;
+  color: black;
   cursor: pointer;
 
   border: none;
-  border-radius: 0.8rem;
-  padding: 0.8rem;
+  border-radius: 1rem;
+  padding: 1rem;
 }
 
 .button:hover {
-  background-color: #886aee;
+  background-color: #facc37;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
