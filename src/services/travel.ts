@@ -51,6 +51,7 @@ export async function getTripData({
       duration: trip.actualDurationInMinutes,
     } as Trip;
   });
+  console.log(response);
 
   return normalizedResponse;
 }
