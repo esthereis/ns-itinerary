@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styles from "./TripCard.module.css";
 import { Trip } from "../types/trip";
-import { formatTime, formatMinutes } from "../utils/date";
+import { formatTime, formatDuration } from "../utils/date";
 import { FiArrowRight, FiClock } from "react-icons/fi";
 
 type Props = {
@@ -15,7 +15,7 @@ function TripCard({ trip }: Props) {
     }
     const departureTime = formatTime(trip.departureTime);
     const arrivalTime = formatTime(trip.arrivalTime);
-    const duration = formatMinutes(trip.departureTime, trip.arrivalTime);
+    const duration = formatDuration(trip.duration);
 
     return [departureTime, arrivalTime, duration];
   }, [trip]);

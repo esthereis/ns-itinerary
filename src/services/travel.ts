@@ -47,7 +47,7 @@ export async function getTripData({
       key: trip.checksum,
       length: trip.legs.length,
       departureTime: trip.legs[0].origin.plannedDateTime,
-      arrivalTime: trip.legs[0].destination.plannedDateTime,
+      arrivalTime: trip.legs[trip.legs.length - 1].destination.plannedDateTime,
       duration: trip.actualDurationInMinutes,
     } as Trip;
   });
