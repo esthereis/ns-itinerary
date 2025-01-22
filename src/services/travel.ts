@@ -1,7 +1,6 @@
 import { TrainApiResponse } from "../types/train";
 import { TrainResponse } from "../types/train";
-import { TripParams, TripResponse } from "../types/trip";
-import { Trip } from "../types/trip";
+import { TripParams, TripResponse, Trip, Leg } from "../types/trip";
 import { axiosInstance } from "../utils/axiosInstance";
 
 export async function getTrainInformation(
@@ -43,15 +42,33 @@ export async function getTripData({
   });
 
   const normalizedResponse = response.data.trips.map((trip: TripResponse) => {
-    return {
+    const legs =
+      trip.legs.length > 1
+        ? trip.legs.map((leg, index) => {
+            return {
+              key: `${index}${trip.checksum}`,
+              origin: leg.origin.name,
+              destiny: leg.destination.name,
+              departureTime: leg.origin.plannedDateTime,
+              arrivalTime: leg.destination.plannedDateTime,
+              duration: leg.duration.value,
+            } as Leg;
+          })
+        : undefined;
+
+    const directTrip = {
       key: trip.checksum,
       length: trip.legs.length,
       departureTime: trip.legs[0].origin.plannedDateTime,
       arrivalTime: trip.legs[trip.legs.length - 1].destination.plannedDateTime,
       duration: trip.actualDurationInMinutes,
+      legs: legs,
     } as Trip;
+
+    console.log(legs);
+
+    return directTrip;
   });
-  console.log(response);
 
   return normalizedResponse;
 }

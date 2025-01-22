@@ -8,7 +8,7 @@ type Props = {
   trip: Trip;
 };
 
-function TripCard({ trip }: Props) {
+export default function TripCard({ trip }: Props) {
   const [departure, arrival, duration] = useMemo(() => {
     if (!trip) {
       return [];
@@ -27,6 +27,7 @@ function TripCard({ trip }: Props) {
         <FiArrowRight />
         <span className={styles.time}>{arrival}</span>
       </div>
+
       <div className={styles.tripDetails}>
         <FiClock />
         <p>{duration}</p>
@@ -34,5 +35,3 @@ function TripCard({ trip }: Props) {
     </div>
   );
 }
-
-export default TripCard;
