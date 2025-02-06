@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import buttonStyles from "./ToggleButton.module.css";
 import styles from "./DatePicker.module.css";
+import themeStyles from "./InputTheme.module.css";
 
 type Props = {
   onDateChange: (dateTime: Date) => void;
@@ -42,7 +42,7 @@ function DatePicker({ onDateChange }: Props) {
   return (
     <div className={styles.datePicker}>
       <input
-        className={buttonStyles.button}
+        className={themeStyles.inputTheme}
         type="date"
         onChange={(event) => {
           updateDate(event.target.value);
@@ -51,7 +51,7 @@ function DatePicker({ onDateChange }: Props) {
       />
 
       <input
-        className={buttonStyles.button}
+        className={themeStyles.inputTheme}
         type="time"
         onChange={(event) => {
           updateTime(event.target.value);
