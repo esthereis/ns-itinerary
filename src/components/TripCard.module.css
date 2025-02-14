@@ -1,4 +1,4 @@
-.tripCard {
+.trip-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,11 +12,11 @@
   border-radius: 0.8rem;
 }
 
-.tripCard:last-child {
+.trip-card:last-child {
   border-bottom: none;
 }
 
-.tripDetails {
+.trip-details {
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -39,7 +39,7 @@ export default function StationAutocomplete({ placeholder, onSelect }: Props) {
       />
 
       {searchable && (
-        <ul className={styles["data-list"]}>
+        <ul className={styles.dataList}>
           {stationList?.map((station) => (
             <li
               key={station.trainCode}

@@ -28,7 +28,7 @@
 }
 
 .selected,
-.submitButton {
+.submit-button {
   background: linear-gradient(
     225deg,
     rgba(109, 203, 248, 1) 0%,
