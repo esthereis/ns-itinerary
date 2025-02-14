@@ -14,7 +14,7 @@ type Props = {
 
 export default function ToggleButton({ options, value, onSelect }: Props) {
   return (
-    <div className={styles["button-group"]}>
+    <div className={styles.buttonGroup}>
       {options.map((option) => (
         <button
           type="button"

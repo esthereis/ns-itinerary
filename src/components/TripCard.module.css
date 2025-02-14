@@ -1,12 +1,23 @@
-.tripCard {
-  background-color: #f2f2f2;
-
+.trip-card {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 1px solid;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 320px;
+  height: 100px;
+  padding: 16px;
+
+  background-color: #382f55;
+
+  border-radius: 0.8rem;
 }
 
-.time {
-  padding: 0.8rem;
+.trip-card:last-child {
+  border-bottom: none;
+}
+
+.trip-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

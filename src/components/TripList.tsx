@@ -7,7 +7,7 @@ export default function TripList() {
   const { trips } = useContext(TripContext);
 
   return (
-    <div className={trips && styles["itinerary-container"]}>
+    <div className={trips && styles.itineraryContainer}>
       {trips?.map((trip) => (
         <TripCard trip={trip} key={trip.key} />
       ))}

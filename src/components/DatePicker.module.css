@@ -1,7 +1,11 @@
-.datePicker {
+.date-picker {
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
   width: 100%;
+}
+
+.date-picker input {
+  cursor: pointer;
 }
