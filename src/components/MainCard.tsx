@@ -43,7 +43,7 @@ export default function MainCard() {
 
         <button
           type="button"
-          className={buttonStyles.button}
+          className={`${buttonStyles.submitButton} ${buttonStyles.button}`}
           onClick={() => {
             setClicked(true);
             planJourney({ origin, destiny, dateTime, route });

@@ -1,0 +1,13 @@
+.input-theme {
+  background: #3f375e;
+  border-style: none;
+  text-align: center;
+
+  border-radius: 1rem;
+  padding: 0.8rem;
+  width: 100%;
+}
+
+::placeholder {
+  color: #f2f2f2;
+}

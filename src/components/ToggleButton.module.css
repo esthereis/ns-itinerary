@@ -2,31 +2,37 @@
   border-radius: 0;
 }
 
-.button-group .selected {
-  background-color: #886aee;
-}
-
 .button-group button:first-child {
-  border-top-left-radius: 0.8rem;
-  border-bottom-left-radius: 0.8rem;
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
 }
 
 .button-group button:last-child {
-  border-top-right-radius: 0.8rem;
-  border-bottom-right-radius: 0.8rem;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
 }
 
 .button {
-  background-color: #c8bcf4;
-  color: #1e1636;
+  background-color: #3f375e;
+  color: #f2f2f2;
   cursor: pointer;
 
   border: none;
-  border-radius: 0.8rem;
+  border-radius: 1rem;
   padding: 0.8rem;
 }
 
 .button:hover {
-  background-color: #886aee;
+  background-color: #ea5488;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.selected,
+.submit-button {
+  background: linear-gradient(
+    225deg,
+    rgba(109, 203, 248, 1) 0%,
+    rgba(160, 113, 251, 1) 75%,
+    rgba(213, 119, 249, 1) 100%
+  );
 }

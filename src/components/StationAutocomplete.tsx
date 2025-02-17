@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getTrainInformation } from "../services/travel";
 import styles from "./StationAutocomplete.module.css";
+import themeStyles from "./InputTheme.module.css";
 import { TrainResponse } from "../types/train";
 
 type Props = {
@@ -27,7 +28,7 @@ export default function StationAutocomplete({ placeholder, onSelect }: Props) {
   return (
     <>
       <input
-        className={styles.input}
+        className={`${styles.input} ${themeStyles.inputTheme}`}
         type="text"
         placeholder={placeholder}
         onChange={(event) => {
@@ -38,7 +39,7 @@ export default function StationAutocomplete({ placeholder, onSelect }: Props) {
       />
 
       {searchable && (
-        <ul className={styles["data-list"]}>
+        <ul className={styles.dataList}>
           {stationList?.map((station) => (
             <li
               key={station.trainCode}
