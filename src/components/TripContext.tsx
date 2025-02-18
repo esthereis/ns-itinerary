@@ -9,6 +9,10 @@ export const TripContext = createContext<Context>({
   planJourney: () => {
     return;
   },
+  selectedTrip: undefined,
+  setSelectedTrip: () => {
+    return;
+  },
 });
 
 type Props = {
@@ -17,6 +21,7 @@ type Props = {
 
 export default function TripProvider({ children }: Props) {
   const [trips, setTrips] = useState<Trip[]>();
+  const [selectedTrip, setSelectedTrip] = useState<Trip>();
 
   const planJourney = async ({
     origin,
@@ -34,7 +39,9 @@ export default function TripProvider({ children }: Props) {
   };
 
   return (
-    <TripContext.Provider value={{ trips, planJourney }}>
+    <TripContext.Provider
+      value={{ trips, planJourney, selectedTrip, setSelectedTrip }}
+    >
       {children}
     </TripContext.Provider>
   );
