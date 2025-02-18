@@ -10,15 +10,13 @@ export default function SelectedTrip() {
 
   return (
     <div className={styles.legs}>
-      {legs &&
-        legs.map((leg) => (
-          <div key={leg.key}>
-            <p>{leg.origin}</p>
-            <p>{formatTime(leg.departureTime)}</p>
-            <p>{formatTime(leg.arrivalTime)}</p>
-            <p>{leg.duration}</p>
-          </div>
-        ))}
+      {legs?.map((leg) => (
+        <div key={leg.key}>
+          <p>{leg.origin}</p>
+          <p>{formatTime(leg.departureTime)}</p>
+          <p>{formatTime(leg.arrivalTime)}</p>
+        </div>
+      ))}
     </div>
   );
 }

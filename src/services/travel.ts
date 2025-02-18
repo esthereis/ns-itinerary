@@ -50,7 +50,7 @@ export async function getTripData({
   return normalizedResponse;
 }
 
-function normalizeResponse(trip: TripResponse, legs: Leg[] | undefined): Trip {
+function normalizeResponse(trip: TripResponse, legs: Leg[]): Trip {
   return {
     key: trip.checksum,
     length: trip.legs.length,
@@ -61,17 +61,15 @@ function normalizeResponse(trip: TripResponse, legs: Leg[] | undefined): Trip {
   } as Trip;
 }
 
-function getLegs(trip: TripResponse): Leg[] | undefined {
-  return trip.legs.length > 1
-    ? trip.legs.map((leg, index) => {
-        return {
-          key: `${index}${trip.checksum}`,
-          origin: leg.origin.name,
-          destiny: leg.destination.name,
-          departureTime: leg.origin.plannedDateTime,
-          arrivalTime: leg.destination.plannedDateTime,
-          duration: leg.duration.value,
-        } as Leg;
-      })
-    : undefined;
+function getLegs(trip: TripResponse): Leg[] {
+  return trip.legs.map((leg, index) => {
+    return {
+      key: `${index}${trip.checksum}`,
+      origin: leg.origin.name,
+      destiny: leg.destination.name,
+      departureTime: leg.origin.plannedDateTime,
+      arrivalTime: leg.destination.plannedDateTime,
+      duration: leg.duration.value,
+    } as Leg;
+  });
 }

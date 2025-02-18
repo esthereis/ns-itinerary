@@ -42,12 +42,12 @@ export default function TripCard({ trip }: Props) {
         <p>{duration}</p>
       </div>
 
-      {legs && (
+      {
         <div className={styles.tripDetails}>
-          <p>{legs?.length}</p>
+          <p>{legs?.length === 1 ? "0" : legs?.length}</p>
           <FiShuffle />
         </div>
-      )}
+      }
     </div>
   );
 }
