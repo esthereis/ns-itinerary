@@ -3,10 +3,15 @@ import { Leg } from "../types/trip";
 import { TripContext } from "./TripContext";
 import { useContext } from "react";
 import { formatTime } from "../utils/date";
+import { FiX } from "react-icons/fi";
 
 export default function SelectedTrip() {
-  const { selectedTrip } = useContext(TripContext);
+  const { selectedTrip, setSelectedTrip } = useContext(TripContext);
   const legs: Leg[] | undefined = selectedTrip?.legs;
+
+  if (!selectedTrip) {
+    return null;
+  }
 
   return (
     <div className={styles.legs}>
@@ -17,6 +22,10 @@ export default function SelectedTrip() {
           <p>{formatTime(leg.arrivalTime)}</p>
         </div>
       ))}
+      <FiX
+        className={styles.closeIcon}
+        onClick={() => setSelectedTrip(undefined)}
+      />
     </div>
   );
 }
