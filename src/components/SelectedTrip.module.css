@@ -1,6 +1,51 @@
-.legs {
+.trip {
   background-color: #251b36;
+
   width: 45vw;
+  padding: 32px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.leg {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+.departure-time {
+  margin-bottom: 112px;
+}
+
+.vertical-line {
+  width: 6px;
+  background-color: white;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.line-dots {
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight::before {
+  height: 15px;
+  width: 15px;
+  background-color: #3f375e;
+
+  border: 3px solid white;
+  border-radius: 50%;
+
+  content: " ";
+  display: block;
 }
 
 .close-icon {

@@ -14,12 +14,31 @@ export default function SelectedTrip() {
   }
 
   return (
-    <div className={styles.legs}>
-      {legs?.map((leg) => (
-        <div key={leg.key}>
-          <p>{leg.origin}</p>
-          <p>{formatTime(leg.departureTime)}</p>
-          <p>{formatTime(leg.arrivalTime)}</p>
+    <div className={styles.trip}>
+      {legs?.map((leg, index) => (
+        <div key={leg.key} className={styles.leg}>
+          <div className={styles.row}>
+            <span className={styles.departureTime}>
+              {formatTime(leg.departureTime)}
+            </span>
+
+            <div
+              className={
+                index !== 0
+                  ? `${styles.verticalLine}`
+                  : `${styles.verticalLine} ${styles.highlight}`
+              }
+            />
+
+            {index === 0 && <span>{leg.origin}</span>}
+          </div>
+
+          <div className={styles.row}>
+            <span>{formatTime(leg.arrivalTime)}</span>
+            <div className={`${styles.verticalLine} ${styles.highlight}`} />
+
+            <span>{leg.destiny}</span>
+          </div>
         </div>
       ))}
       <FiX
