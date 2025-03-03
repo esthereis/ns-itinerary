@@ -4,6 +4,8 @@ import { TripContext } from "./TripContext";
 import { useContext } from "react";
 import { formatTime } from "../utils/date";
 import { FiX } from "react-icons/fi";
+import { PiTrainLight } from "react-icons/pi";
+import { formatLegDuration } from "../utils/date";
 
 export default function SelectedTrip() {
   const { selectedTrip, setSelectedTrip } = useContext(TripContext);
@@ -21,6 +23,11 @@ export default function SelectedTrip() {
             <span className={styles.departureTime}>
               {formatTime(leg.departureTime)}
             </span>
+
+            <div className={styles.duration}>
+              <PiTrainLight size={20} />
+              <span>{formatLegDuration(leg.duration)}</span>
+            </div>
 
             <div
               className={

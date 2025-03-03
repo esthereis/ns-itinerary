@@ -14,3 +14,11 @@ export function formatDuration(duration: number): string {
     return `${duration}min.`;
   }
 }
+
+export function formatLegDuration(duration: string): string {
+  const numbers = duration.match(/\d+/g);
+  const minutes = numbers?.length < 2 ? numbers[0] : numbers[1];
+  const hour = numbers?.length === 2 ? numbers[0] : undefined;
+
+  return hour ? `${hour}h ${minutes}min.` : `${minutes}min.`;
+}

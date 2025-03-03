@@ -16,6 +16,7 @@
 .row {
   display: flex;
   gap: 16px;
+  position: relative;
 }
 
 .departure-time {
@@ -50,4 +51,16 @@
 
 .close-icon {
   cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.duration {
+  position: absolute;
+  top: 52px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
