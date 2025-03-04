@@ -15,10 +15,12 @@ export function formatDuration(duration: number): string {
   }
 }
 
-export function formatLegDuration(duration: string): string {
-  const numbers = duration.match(/\d+/g);
-  const minutes = numbers?.length < 2 ? numbers[0] : numbers[1];
-  const hour = numbers?.length === 2 ? numbers[0] : undefined;
-
-  return hour ? `${hour}h ${minutes}min.` : `${minutes}min.`;
+export function formatLegDuration(duration: number): string | undefined {
+  const numbers = duration.toString().match(/\d+/g);
+  if (numbers) {
+    const minutes = numbers?.length < 2 ? numbers[0] : numbers[1];
+    const hour = numbers?.length === 2 ? numbers[0] : undefined;
+    return hour ? `${hour}h ${minutes}min.` : `${minutes}min.`;
+  }
+  return undefined;
 }

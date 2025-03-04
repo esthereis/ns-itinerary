@@ -6,11 +6,13 @@
 
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .leg {
   display: flex;
   flex-direction: column;
+  margin-left: 32px;
 }
 
 .row {
@@ -63,4 +65,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.duration span {
+  font-size: 12px;
 }
