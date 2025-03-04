@@ -4,4 +4,11 @@
   flex: 2;
 
   gap: 12px;
+  margin-top: 16px;
+  margin-left: 160px;
+}
+
+.transition {
+  margin-left: 40px;
+  transition: margin 3s;
 }

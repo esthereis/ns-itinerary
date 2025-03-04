@@ -16,6 +16,12 @@
   border-bottom: none;
 }
 
+.trip-card:hover {
+  background-color: #251b36;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
 .trip-details {
   display: flex;
   flex-direction: row;

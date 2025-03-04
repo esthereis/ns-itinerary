@@ -1,15 +1,16 @@
-import { useMemo, useState } from "react";
+import { useMemo, useContext } from "react";
 import styles from "./TripCard.module.css";
 import { Trip } from "../types/trip";
 import { formatTime, formatDuration } from "../utils/date";
 import { FiArrowRight, FiClock, FiShuffle } from "react-icons/fi";
+import { TripContext } from "./TripContext";
 
 type Props = {
   trip: Trip;
 };
 
 export default function TripCard({ trip }: Props) {
-  const [legsClicked, setLegsClicked] = useState<boolean>(false);
+  const { setSelectedTrip } = useContext(TripContext);
 
   const [departure, arrival, duration, legs] = useMemo(() => {
     if (!trip) {
@@ -24,7 +25,12 @@ export default function TripCard({ trip }: Props) {
   }, [trip]);
 
   return (
-    <div className={styles.tripCard}>
+    <div
+      className={styles.tripCard}
+      onClick={() => {
+        setSelectedTrip(trip);
+      }}
+    >
       <div className={styles.tripDetails}>
         <span className={styles.time}>{departure}</span>
         <FiArrowRight />
@@ -36,30 +42,12 @@ export default function TripCard({ trip }: Props) {
         <p>{duration}</p>
       </div>
 
-      {legs && (
-        <div
-          onClick={() => {
-            setLegsClicked(!legsClicked);
-          }}
-          className={styles.tripDetails}
-        >
-          <p>{legs?.length}</p>
+      {
+        <div className={styles.tripDetails}>
+          <p>{legs?.length === 1 ? "0" : legs?.length}</p>
           <FiShuffle />
         </div>
-      )}
-
-      {legsClicked &&
-        legs?.map((leg) => {
-          return (
-            <div>
-              <p>{leg.origin}</p>
-              <p>{formatTime(leg.departureTime)}</p>
-              <p>{leg.destiny}</p>
-              <p>{formatTime(leg.arrivalTime)}</p>
-              <p>{formatDuration(leg.duration)}</p>
-            </div>
-          );
-        })}
+      }
     </div>
   );
 }
