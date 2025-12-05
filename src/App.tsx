@@ -1,13 +1,14 @@
-import MainCard from "./components/MainCard";
+import ItineraryFormCard from "./components/ItineraryFormCard";
 import TripProvider from "./components/TripContext";
 import TripList from "./components/TripList";
-import styles from "./App.module.css";
+import "./variables.css";
 
 export default function App() {
   return (
-    <div className={styles.page}>
+    <div>
       <TripProvider>
-        <MainCard />
+        <ItineraryFormCard />
+        {/* <MainCard /> */}
         <TripList />
       </TripProvider>
     </div>

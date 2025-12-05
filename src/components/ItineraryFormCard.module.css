@@ -1,0 +1,52 @@
+.itinerary-card {
+  height: 500px;
+  width: 600px;
+
+  background-color: var(--pure-white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.form-wrapper {
+  padding: 2.5rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header,
+.plan-button {
+  background-color: var(--medium-green);
+  color: var(--pure-white);
+
+  font-weight: 600;
+}
+
+.header {
+  height: 50px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-picker-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.plan-button {
+  height: 50px;
+  width: 100%;
+
+  margin-top: 1rem;
+  border: none;
+
+  cursor: pointer;
+}
+
+.plan-button:hover {
+  opacity: 0.85;
+  transition: ease 1s;
+}

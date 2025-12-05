@@ -1,0 +1,47 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  height: 46px;
+  width: 100%;
+  padding-block: 1rem;
+  padding-right: 2.5rem;
+
+  background-color: var(--light-gray);
+  border: none;
+  color: var(--dark-gray);
+  font-weight: 600;
+
+  display: flex;
+  align-items: center;
+}
+
+.input[data-prefix="false"],
+.left-padding-false {
+  padding-left: 1rem;
+}
+
+.input[data-prefix="true"],
+.left-padding-true {
+  padding-left: 2.5rem;
+}
+
+.prefix {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--medium-green);
+}

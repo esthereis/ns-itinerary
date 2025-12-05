@@ -1,0 +1,45 @@
+.toggle-button {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+
+  background: none;
+  color: var(--medium-green);
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-button:hover {
+  background-color: var(--medium-gray);
+}
+
+.list {
+  width: 100%;
+  max-height: 500px;
+  z-index: 1;
+
+  background-color: var(--light-gray);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  list-style: none;
+  padding: 1rem 1rem;
+
+  cursor: pointer;
+}
+
+.item:hover {
+  background-color: var(--medium-gray);
+}
