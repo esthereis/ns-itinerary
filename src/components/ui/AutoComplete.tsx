@@ -1,12 +1,14 @@
 import { flip, offset, useFloating } from "@floating-ui/react";
 import { useCombobox } from "downshift";
+import { useFormikContext } from "formik";
 import { ReactNode, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import sharedInputStyles from "../../styles/sharedInputStyle.module.css";
+import { ItineraryFormFields } from "../../types/itineraryFormFields";
 import styles from "./Autocomplete.module.css";
 
 type AutoCompleteProps = {
-  id: string;
+  id: keyof Omit<ItineraryFormFields, "date" | "time">;
   label?: string;
   options: string[];
   placeholder: string;
@@ -25,8 +27,10 @@ export default function AutoComplete({
     middleware: [flip(), offset(4)],
   });
   const [items, setItems] = useState<string[]>(options);
+  const { values, setFieldValue, handleBlur, errors, touched } =
+    useFormikContext<ItineraryFormFields>();
 
-  const handleInputChange = (inputValue: string) => {
+  const handleFiltering = (inputValue: string) => {
     const filteredList: string[] = options.filter((option) =>
       option.toLowerCase().includes(inputValue.toLowerCase())
     );
@@ -41,12 +45,16 @@ export default function AutoComplete({
     getMenuProps,
     getItemProps,
     getToggleButtonProps,
-    selectItem,
   } = useCombobox({
-    onInputValueChange({ inputValue }) {
-      handleInputChange(inputValue);
-    },
     items,
+    inputValue: values[id] ?? "",
+    onInputValueChange({ inputValue }) {
+      setFieldValue(id, inputValue || "");
+      handleFiltering(inputValue);
+    },
+    onSelectedItemChange({ selectedItem }) {
+      setFieldValue(id, selectedItem ?? "");
+    },
   });
   return (
     <div className={sharedInputStyles["input-wrapper"]}>
@@ -61,11 +69,11 @@ export default function AutoComplete({
         <div className={sharedInputStyles.prefix}>{prefix}</div>
 
         <input
-          id={id}
-          placeholder={placeholder}
+          placeholder={placeholder || undefined}
           className={sharedInputStyles.input}
           data-prefix={!!prefix}
-          {...getInputProps()}
+          {...getInputProps({ onBlur: handleBlur })}
+          id={id}
         />
         <button className={styles["toggle-button"]} {...getToggleButtonProps()}>
           {isOpen ? <FaCaretUp /> : <FaCaretDown />}
@@ -74,21 +82,20 @@ export default function AutoComplete({
 
       <ul
         className={styles.list}
-        {...getMenuProps({ref: refs.setFloating})}
-        
+        {...getMenuProps({ ref: refs.setFloating })}
         style={floatingStyles}
       >
         {isOpen &&
           items.map((item, index) => (
-            <li
-              className={styles.item}
-              {...getItemProps({ item, index })}
-              onClick={() => selectItem(item)}
-            >
+            <li className={styles.item} {...getItemProps({ item, index })}>
               {item}
             </li>
           ))}
       </ul>
+
+      {touched[id] && errors[id] && (
+        <span className={styles["error-message"]}>{errors[id]}</span>
+      )}
     </div>
   );
 }

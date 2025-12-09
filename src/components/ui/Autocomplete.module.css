@@ -43,3 +43,7 @@
 .item:hover {
   background-color: var(--medium-gray);
 }
+
+.error-message {
+  color: var(--medium-red);
+}
