@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import { ImCalendar, ImClock } from "react-icons/im";
 import { IoLocationSharp } from "react-icons/io5";
 import { date, object, string } from "yup";
@@ -9,7 +9,9 @@ import CustomDatePicker from "./ui/CustomDatePicker";
 export default function ItineraryFormCard() {
   return (
     <Formik
-      onSubmit={(values) => console.log(values)}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
       initialValues={{
         departure: "",
         arrival: "",
@@ -25,7 +27,7 @@ export default function ItineraryFormCard() {
         time: date(),
       })}
     >
-      <div className={styles["itinerary-card"]}>
+      <Form className={styles["itinerary-card"]}>
         <div className={styles.header}>
           <p>Plan Your Trip</p>
         </div>
@@ -35,7 +37,6 @@ export default function ItineraryFormCard() {
             id="departure"
             label="Departure:"
             placeholder="Choose a departure station"
-            options={["Amsterdam", "Brasilia", "Dusseldorf"]}
             prefix={<IoLocationSharp />}
           />
 
@@ -43,7 +44,6 @@ export default function ItineraryFormCard() {
             id="arrival"
             label="Arrival:"
             placeholder="Choose a departure station"
-            options={["Amsterdam", "Brasilia", "Dusseldorf"]}
             prefix={<IoLocationSharp />}
           />
 
@@ -62,7 +62,7 @@ export default function ItineraryFormCard() {
             Plan
           </button>
         </div>
-      </div>
+      </Form>
     </Formik>
   );
 }
