@@ -1,10 +1,10 @@
-import { TrainApiResponse, TrainResponse } from "../types/train";
+import { Train, TrainApiResponse } from "../types/train";
 import { Leg, Trip, TripParams, TripResponse } from "../types/trip";
 import { axiosInstance } from "../utils/axiosInstance";
 
 export async function getTrainInformation(
   searchTerm: string
-): Promise<TrainResponse[] | undefined> {
+): Promise<Train[] | undefined> {
   const response = await axiosInstance.get<TrainApiResponse>(`/v2/stations`, {
     params: {
       q: searchTerm,
@@ -16,7 +16,7 @@ export async function getTrainInformation(
     return {
       trainCode: train.UICCode,
       stationName: train.namen.lang,
-    } as TrainResponse;
+    } as Train;
   });
 
   return normalizedResponse;

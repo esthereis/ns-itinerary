@@ -3,6 +3,7 @@ import { ImCalendar, ImClock } from "react-icons/im";
 import { IoLocationSharp } from "react-icons/io5";
 import { date, object, string } from "yup";
 import { ItineraryFormFields } from "../types/itineraryFormFields";
+import { combineDateAndTime } from "../utils/formatDate";
 import { useTripContext } from "./context/TripContext";
 import styles from "./ItineraryFormCard.module.css";
 import AutoComplete from "./ui/AutoComplete";
@@ -12,16 +13,11 @@ export default function ItineraryFormCard() {
   const { planJourney } = useTripContext();
 
   const handleSubmit = (values: ItineraryFormFields) => {
-    console.log({
-      originCode: values.origin.trainCode,
-      destinyCode: values.destiny.trainCode,
-      dateTime: values.date,
-      route: "departure",
-    });
+    const formattedDate = combineDateAndTime(values.date, values.time);
     planJourney({
       originCode: values.origin.trainCode,
       destinyCode: values.destiny.trainCode,
-      dateTime: values.date,
+      dateTime: formattedDate,
       route: "departure",
     });
   };

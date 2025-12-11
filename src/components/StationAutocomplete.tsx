@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getTrainInformation } from "../services/travel";
-import styles from "./StationAutocomplete.module.css";
+import { Train } from "../types/train";
 import themeStyles from "./InputTheme.module.css";
-import { TrainResponse } from "../types/train";
+import styles from "./StationAutocomplete.module.css";
 
 type Props = {
   placeholder: string;
@@ -11,9 +11,7 @@ type Props = {
 
 export default function StationAutocomplete({ placeholder, onSelect }: Props) {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [stationList, setStationList] = useState<TrainResponse[] | undefined>(
-    []
-  );
+  const [stationList, setStationList] = useState<Train[] | undefined>([]);
   const [searchable, setSearchable] = useState(false);
 
   useEffect(() => {

@@ -1,12 +1,12 @@
 import { flip, offset, useFloating } from "@floating-ui/react";
 import { useCombobox } from "downshift";
-import { useFormikContext } from "formik";
+import { useField } from "formik";
 import { ReactNode, useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { getTrainInformation } from "../../services/travel";
 import sharedInputStyles from "../../styles/sharedInputStyle.module.css";
 import { ItineraryFormFields } from "../../types/itineraryFormFields";
-import { TrainResponse } from "../../types/train";
+import { Train } from "../../types/train";
 import styles from "./Autocomplete.module.css";
 
 type AutoCompleteProps = {
@@ -22,27 +22,24 @@ export default function AutoComplete({
   prefix,
   placeholder,
 }: AutoCompleteProps) {
-  const [items, setItems] = useState<TrainResponse[]>([]);
-  const [trainList, setTrainList] = useState<TrainResponse[]>([]);
+  const [field, meta, helpers] = useField<Train>(id);
+
+  const [inputValue, setInputValue] = useState<string>(
+    field.value?.stationName ?? ""
+  );
+  const [items, setItems] = useState<Train[]>([]);
   const { refs, floatingStyles } = useFloating<HTMLUListElement>({
     placement: "bottom-start",
     middleware: [flip(), offset(4)],
   });
-  const { values, setFieldValue, handleBlur, errors, touched } =
-    useFormikContext<ItineraryFormFields>();
 
   useEffect(() => {
-    getTrainInformation(values[id].stationName).then((response) =>
-      setTrainList(response ?? [])
-    );
-  }, [values[id].stationName]);
-
-  const handleFiltering = (inputValue: string) => {
-    const filteredList: TrainResponse[] = trainList.filter((item) =>
-      item.stationName.toLowerCase().includes(inputValue.toLowerCase())
-    );
-    setItems(filteredList);
-  };
+    if (inputValue) {
+      getTrainInformation(inputValue).then((response) =>
+        setItems(response ?? [])
+      );
+    }
+  }, [inputValue]);
 
   const {
     isOpen,
@@ -53,22 +50,17 @@ export default function AutoComplete({
     getToggleButtonProps,
   } = useCombobox({
     items,
-    inputValue: values[id].stationName ?? "",
+    inputValue: inputValue ?? "",
     onInputValueChange({ inputValue }) {
-      setFieldValue(id, {
-        trainCode: "",
-        stationName: inputValue || "",
-      });
-      handleFiltering(inputValue);
+      setInputValue(inputValue);
     },
     onSelectedItemChange({ selectedItem }) {
       if (!selectedItem) {
         return;
       }
-      setFieldValue(id, {
-        trainCode: selectedItem.trainCode,
-        stationName: selectedItem.stationName,
-      });
+
+      setInputValue(selectedItem.stationName);
+      helpers.setValue(selectedItem);
     },
     itemToString: (item) => item?.stationName ?? "",
   });
@@ -89,11 +81,15 @@ export default function AutoComplete({
           placeholder={placeholder || undefined}
           className={sharedInputStyles.input}
           data-prefix={!!prefix}
-          {...getInputProps({ onBlur: handleBlur })}
+          {...getInputProps({ onBlur: field.onBlur })}
           id={id}
         />
 
-        <button className={styles["toggle-button"]} {...getToggleButtonProps()}>
+        <button
+          type="button"
+          className={styles["toggle-button"]}
+          {...getToggleButtonProps()}
+        >
           {isOpen ? <FaCaretUp /> : <FaCaretDown />}
         </button>
       </div>
@@ -115,9 +111,9 @@ export default function AutoComplete({
           ))}
       </ul>
 
-      {touched[id] && errors[id] && (
+      {meta.touched && meta.error && (
         <span className={styles["error-message"]}>
-          {errors[id].stationName}
+          {(meta.error as unknown as Train).stationName}
         </span>
       )}
     </div>
