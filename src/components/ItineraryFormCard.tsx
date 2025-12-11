@@ -2,27 +2,54 @@ import { Form, Formik } from "formik";
 import { ImCalendar, ImClock } from "react-icons/im";
 import { IoLocationSharp } from "react-icons/io5";
 import { date, object, string } from "yup";
+import { ItineraryFormFields } from "../types/itineraryFormFields";
+import { useTripContext } from "./context/TripContext";
 import styles from "./ItineraryFormCard.module.css";
 import AutoComplete from "./ui/AutoComplete";
 import CustomDatePicker from "./ui/CustomDatePicker";
 
 export default function ItineraryFormCard() {
+  const { planJourney } = useTripContext();
+
+  const handleSubmit = (values: ItineraryFormFields) => {
+    console.log({
+      originCode: values.origin.trainCode,
+      destinyCode: values.destiny.trainCode,
+      dateTime: values.date,
+      route: "departure",
+    });
+    planJourney({
+      originCode: values.origin.trainCode,
+      destinyCode: values.destiny.trainCode,
+      dateTime: values.date,
+      route: "departure",
+    });
+  };
+
   return (
     <Formik
       onSubmit={(values) => {
-        console.log(values);
+        handleSubmit(values);
       }}
       initialValues={{
-        departure: "",
-        arrival: "",
+        origin: { trainCode: "", stationName: "" },
+        destiny: { trainCode: "", stationName: "" },
         date: new Date(),
         time: new Date(),
       }}
       validationSchema={object().shape({
-        departure: string()
-          .required()
-          .max(40, "Must be 40 characters  or less"),
-        arrival: string().required().max(40, "Must be 40 characters  or less"),
+        origin: object().shape({
+          trainCode: string(),
+          stationName: string()
+            .required("Please fill the origin field.")
+            .max(40, "Must be 40 characters  or less"),
+        }),
+        destiny: object().shape({
+          trainCode: string(),
+          stationName: string()
+            .required("Please fill the origin field.")
+            .max(40, "Must be 40 characters  or less"),
+        }),
         date: date(),
         time: date(),
       })}
@@ -34,15 +61,15 @@ export default function ItineraryFormCard() {
 
         <div className={styles["form-wrapper"]}>
           <AutoComplete
-            id="departure"
-            label="Departure:"
-            placeholder="Choose a departure station"
+            id="origin"
+            label="Origin:"
+            placeholder="Choose a origin station"
             prefix={<IoLocationSharp />}
           />
 
           <AutoComplete
-            id="arrival"
-            label="Arrival:"
+            id="destiny"
+            label="Destiny:"
             placeholder="Choose a departure station"
             prefix={<IoLocationSharp />}
           />

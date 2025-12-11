@@ -6,7 +6,7 @@ import styles from "./MainCard.module.css";
 import StationAutocomplete from "./StationAutocomplete";
 import ToggleButton from "./ToggleButton";
 import buttonStyles from "./ToggleButton.module.css";
-import { TripContext } from "./TripContext";
+import { TripContext } from "./context/TripProvider";
 
 export default function MainCard() {
   const [origin, setOrigin] = useState<string>("");

@@ -1,6 +1,6 @@
 export type ItineraryFormFields = {
-  departure: string;
-  arrival: string;
+  origin: { trainCode: string; stationName: string };
+  destiny: { trainCode: string; stationName: string };
   date: Date;
   time: Date;
 };

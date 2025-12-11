@@ -1,6 +1,6 @@
 export type TripParams = {
-  origin: string;
-  destiny: string;
+  originCode: string;
+  destinyCode: string;
   dateTime?: Date;
   route: string;
 };
@@ -29,7 +29,6 @@ export type TripResponse = {
   legs: {
     origin: { plannedDateTime: string; name: string };
     destination: { plannedDateTime: string; name: string };
-    duration: {value: number};
+    duration: { value: number };
   }[];
-
 };

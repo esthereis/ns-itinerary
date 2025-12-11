@@ -1,9 +1,8 @@
-import { useContext } from "react";
 import TripCard from "./TripCard";
-import { TripContext } from "./TripContext";
+import { useTripContext } from "./context/TripContext";
 
 export default function TripList() {
-  const { trips } = useContext(TripContext);
+  const { trips } = useTripContext();
 
   return (
     <div>

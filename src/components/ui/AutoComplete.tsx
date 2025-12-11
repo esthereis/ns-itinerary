@@ -32,10 +32,10 @@ export default function AutoComplete({
     useFormikContext<ItineraryFormFields>();
 
   useEffect(() => {
-    getTrainInformation(values[id]).then((response) =>
+    getTrainInformation(values[id].stationName).then((response) =>
       setTrainList(response ?? [])
     );
-  }, [values[id]]);
+  }, [values[id].stationName]);
 
   const handleFiltering = (inputValue: string) => {
     const filteredList: TrainResponse[] = trainList.filter((item) =>
@@ -53,13 +53,22 @@ export default function AutoComplete({
     getToggleButtonProps,
   } = useCombobox({
     items,
-    inputValue: values[id] ?? "",
+    inputValue: values[id].stationName ?? "",
     onInputValueChange({ inputValue }) {
-      setFieldValue(id, inputValue || "");
+      setFieldValue(id, {
+        trainCode: "",
+        stationName: inputValue || "",
+      });
       handleFiltering(inputValue);
     },
     onSelectedItemChange({ selectedItem }) {
-      setFieldValue(id, selectedItem?.stationName ?? "");
+      if (!selectedItem) {
+        return;
+      }
+      setFieldValue(id, {
+        trainCode: selectedItem.trainCode,
+        stationName: selectedItem.stationName,
+      });
     },
     itemToString: (item) => item?.stationName ?? "",
   });
@@ -107,7 +116,9 @@ export default function AutoComplete({
       </ul>
 
       {touched[id] && errors[id] && (
-        <span className={styles["error-message"]}>{errors[id]}</span>
+        <span className={styles["error-message"]}>
+          {errors[id].stationName}
+        </span>
       )}
     </div>
   );

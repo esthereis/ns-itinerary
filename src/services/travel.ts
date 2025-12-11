@@ -1,40 +1,37 @@
-import { TrainApiResponse } from "../types/train";
-import { TrainResponse } from "../types/train";
-import { TripParams, TripResponse, Trip, Leg } from "../types/trip";
+import { TrainApiResponse, TrainResponse } from "../types/train";
+import { Leg, Trip, TripParams, TripResponse } from "../types/trip";
 import { axiosInstance } from "../utils/axiosInstance";
 
 export async function getTrainInformation(
   searchTerm: string
 ): Promise<TrainResponse[] | undefined> {
-  if (searchTerm.length >= 2) {
-    const response = await axiosInstance.get<TrainApiResponse>(`/v2/stations`, {
-      params: {
-        q: searchTerm,
-        limit: 10,
-      },
-    });
+  const response = await axiosInstance.get<TrainApiResponse>(`/v2/stations`, {
+    params: {
+      q: searchTerm,
+      limit: 10,
+    },
+  });
 
-    const normalizedResponse = response.data.payload.map((train) => {
-      return {
-        trainCode: train.UICCode,
-        stationName: train.namen.lang,
-      } as TrainResponse;
-    });
+  const normalizedResponse = response.data.payload.map((train) => {
+    return {
+      trainCode: train.UICCode,
+      stationName: train.namen.lang,
+    } as TrainResponse;
+  });
 
-    return normalizedResponse;
-  }
+  return normalizedResponse;
 }
 
 export async function getTripData({
-  origin,
-  destiny,
+  originCode,
+  destinyCode,
   dateTime,
   route,
 }: TripParams): Promise<Trip[]> {
   const response = await axiosInstance.get(`/v3/trips`, {
     params: {
-      originUicCode: origin,
-      destinationUicCode: destiny,
+      originUicCode: originCode,
+      destinationUicCode: destinyCode,
       dateTime: dateTime,
       departure: route === "departure",
       arrival: route === "arrival",
