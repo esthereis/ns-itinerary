@@ -1,0 +1,8 @@
+.card-wrapper {
+  background-color: var(--main-white);
+  height: 150px;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: row;
+}

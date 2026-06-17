@@ -1,13 +1,11 @@
 import { useCombobox } from "downshift";
-import { ReactNode, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
-import { FaChevronUp } from "react-icons/fa";
+import { useState } from "react";
+
+import Input, { InputProps } from "./Input";
 
 type AutoCompleteProps = {
   items: string[];
-  label: string;
-  placeholder: string;
-};
+} & Pick<InputProps, "label" | "placeholder" | "prefixElement" | "width">;
 
 function getList(list: string[], inputValue: string): string[] {
   if (inputValue) {
@@ -20,8 +18,8 @@ function getList(list: string[], inputValue: string): string[] {
 
 export default function AutoComplete({
   items,
-  label,
-  placeholder,
+  width = "100%",
+  ...props
 }: AutoCompleteProps) {
   const [list, setList] = useState<string[]>(items);
   const {
@@ -42,28 +40,24 @@ export default function AutoComplete({
   });
 
   return (
-    <div>
-      <label {...getLabelProps()}>{label}</label>
-      <div>
-        <input type="text" placeholder={placeholder} {...getInputProps()} />
-        <button
-          type="button"
-          aria-label="toggle-button"
-          {...getToggleButtonProps()}
-        >
-          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-        </button>
-      </div>
+    <div style={{ width: width }}>
+      <Input
+        inputProps={getInputProps()}
+        labelProps={getLabelProps()}
+        toggleButtonProps={getToggleButtonProps()}
+        isOpen
+        width={width}
+        {...props}
+      />
 
-      {isOpen && (
-        <ul {...getMenuProps()}>
-          {list.map((item, index) => (
+      <ul {...getMenuProps()}>
+        {isOpen &&
+          list.map((item, index) => (
             <li key={index} {...getItemProps({ item, index })}>
               {item}
             </li>
           ))}
-        </ul>
-      )}
+      </ul>
     </div>
   );
 }

@@ -3,5 +3,6 @@
 .page {
   background: var(--main-bg-color);
   display: flex;
+  flex-direction: column;
   gap: 12px;
 }

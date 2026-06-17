@@ -1,12 +1,38 @@
+@font-face {
+  font-family: "Rawline_300";
+  src: url("./assets/fonts/rawline-300.ttf");
+}
+
+@font-face {
+  font-family: "Rawline_400";
+  src: url("./assets/fonts/rawline-400.ttf");
+}
+
+@font-face {
+  font-family: "Rawline_500";
+  src: url("./assets/fonts/rawline-500.ttf");
+}
+
+@font-face {
+  font-family: "Rawline_600";
+  src: url("./assets/fonts/rawline-600.ttf");
+}
+
+@font-face {
+  font-family: "Rawline_700";
+  src: url("./assets/fonts/rawline-700.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Roboto", serif;
-  font-weight: 500;
-  color: #f2f2f2;
+  font-family: "Rawline_300", serif;
 }
 
-.colors {
-  --main-bg-color: #e0e0e5;
+:root {
+  --main-bg-color: #f4f5fe;
+  --main-white: #ffffff;
+  --main-purple: #06064a;
+  --light-gray: #cccccc;
 }
