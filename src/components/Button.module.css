@@ -1,15 +1,25 @@
 .button {
-  background-color: var(--main-purple);
-  color: var(--main-white);
   font-family: "Rawline_600";
 
-  border: none;
   border-radius: 25px;
   flex-shrink: 0;
 
   cursor: pointer;
 }
 
-.button:hover {
+.button[data-style="false"]:hover,
+.button[data-style="true"]:hover {
   background-color: var(--secondary-purple);
+}
+
+.button[data-style="false"] {
+  background-color: var(--main-purple);
+  color: var(--main-white);
+  border: none;
+}
+
+.button[data-style="true"] {
+  background-color: var(--main-white);
+  color: var(--main-purple);
+  border: 1px solid var(--main-purple);
 }

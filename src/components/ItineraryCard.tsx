@@ -5,6 +5,7 @@ import Input from "./Input";
 import InputPrefix from "./InputPrefix";
 import styles from "./ItineraryCard.module.css";
 import { FaExchangeAlt } from "react-icons/fa";
+import ToggleMenu from "./ToggleMenu";
 
 type ItineraryCardProps = {
   departureList: string[];
@@ -17,32 +18,35 @@ export default function ItineraryCard({
 }: ItineraryCardProps) {
   return (
     <div className={styles["card-wrapper"]}>
-      <div className={styles["itinerary-buttons"]}>
-        <AutoComplete
-          items={departureList}
-          label="Departure"
-          placeholder="Ex: Amsterdam"
-          prefixElement={<InputPrefix />}
-          width="280px"
-        />
+      <ToggleMenu options={["Arrival", "Departure"]} />
+      <div className={styles["form-wrapper"]}>
+        <div className={styles["itinerary-buttons"]}>
+          <AutoComplete
+            items={departureList}
+            label="Departure"
+            placeholder="Ex: Amsterdam"
+            prefixElement={<InputPrefix />}
+            width="280px"
+          />
 
-        <Button width="50px" height="50px">
-          {<FaExchangeAlt />}
-        </Button>
+          <Button width="50px" height="50px">
+            {<FaExchangeAlt />}
+          </Button>
 
-        <AutoComplete
-          items={arrivalList}
-          label="Arrival"
-          placeholder="Ex: Rotterdam"
-          prefixElement={<InputPrefix />}
-          width="280px"
-        />
+          <AutoComplete
+            items={arrivalList}
+            label="Arrival"
+            placeholder="Ex: Rotterdam"
+            prefixElement={<InputPrefix />}
+            width="280px"
+          />
+        </div>
+
+        <CustomDatePicker label="Departure Date" width="280px" />
+        <CustomDatePicker label="Departure Time" type="time" width="280px" />
+
+        <Button width="180px">Plan your trip</Button>
       </div>
-
-      <CustomDatePicker label="Departure Date" width="280px" />
-      <CustomDatePicker label="Departure Time" type="time" width="280px" />
-
-      <Button width="180px">Plan your trip</Button>
     </div>
   );
 }
