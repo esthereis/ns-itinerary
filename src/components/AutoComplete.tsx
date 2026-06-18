@@ -1,5 +1,6 @@
 import { useCombobox } from "downshift";
 import { useState } from "react";
+import styles from "./AutoComplete.module.css";
 
 import Input, { InputProps } from "./Input";
 
@@ -13,12 +14,13 @@ function getList(list: string[], inputValue: string): string[] {
       item.toLowerCase().includes(inputValue.toLocaleLowerCase()),
     );
   }
-  return [];
+  return list;
 }
 
 export default function AutoComplete({
   items,
   width = "100%",
+  prefixElement,
   ...props
 }: AutoCompleteProps) {
   const [list, setList] = useState<string[]>(items);
@@ -45,15 +47,26 @@ export default function AutoComplete({
         inputProps={getInputProps()}
         labelProps={getLabelProps()}
         toggleButtonProps={getToggleButtonProps()}
-        isOpen
+        isOpen={isOpen}
         width={width}
+        prefixElement={prefixElement}
+        isAutoComplete
         {...props}
       />
 
-      <ul {...getMenuProps()}>
+      <ul
+        className={styles["stations-list"]}
+        style={{ width: width }}
+        data-active={isOpen}
+        {...getMenuProps()}
+      >
         {isOpen &&
           list.map((item, index) => (
-            <li key={index} {...getItemProps({ item, index })}>
+            <li
+              data-prefix={!!prefixElement}
+              key={index}
+              {...getItemProps({ item, index })}
+            >
               {item}
             </li>
           ))}

@@ -1,0 +1,8 @@
+.button {
+  background-color: var(--main-purple);
+  color: var(--main-white);
+  font-weight: 600;
+
+  border-radius: 25px;
+  flex-shrink: 0;
+}

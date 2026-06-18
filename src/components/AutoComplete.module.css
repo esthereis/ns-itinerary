@@ -1,0 +1,54 @@
+.autocomplete-wrapper {
+  position: relative;
+}
+
+.stations-list {
+  position: absolute;
+
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--main-purple);
+  border-radius: 25px;
+
+  margin-top: 0.25rem;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stations-list[data-active="false"] {
+  display: none;
+}
+
+.stations-list li[data-prefix="false"] {
+  padding-left: 1rem;
+}
+
+.stations-list li[data-prefix="true"] {
+  padding-left: 4rem;
+}
+
+.stations-list li {
+  list-style: none;
+  padding-block: 0.45rem;
+  padding-right: 1rem;
+
+  width: 100%;
+  cursor: pointer;
+}
+
+.stations-list li:first-child {
+  border-top-right-radius: 25px;
+  border-top-left-radius: 25px;
+}
+
+.stations-list li:last-child {
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+
+.stations-list li:hover {
+  background-color: var(--secondary-purple);
+}

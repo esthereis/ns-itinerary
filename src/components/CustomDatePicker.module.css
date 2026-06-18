@@ -1,0 +1,23 @@
+.date-picker-wrapper {
+  position: relative;
+}
+
+.date-picker {
+  padding-left: 4rem;
+}
+
+.calendar-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1rem;
+}
+
+.calendar-container-children {
+  position: relative;
+}
+
+.label,
+.calendar-icon {
+  z-index: 1;
+}

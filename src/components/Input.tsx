@@ -12,11 +12,13 @@ export type InputProps = {
   label: string;
   placeholder: string;
   prefixElement?: ReactNode;
-  isOpen: boolean;
-  inputProps: Input;
-  labelProps: Label;
-  toggleButtonProps: ToggleButton;
   width?: string;
+  type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
+  isAutoComplete?: boolean;
+  isOpen?: boolean;
+  inputProps?: Input;
+  labelProps?: Label;
+  toggleButtonProps?: ToggleButton;
 };
 
 type Input = InputHTMLAttributes<HTMLInputElement>;
@@ -30,8 +32,10 @@ export default function Input({
   isOpen,
   inputProps,
   labelProps,
+  type = "text",
   toggleButtonProps,
   width = "100%",
+  isAutoComplete = false,
 }: InputProps) {
   return (
     <div className={styles["input-wrapper"]}>
@@ -49,21 +53,23 @@ export default function Input({
 
         <input
           data-prefix={!!prefixElement}
-          type="text"
+          type={type}
           placeholder={placeholder}
           className={styles.input}
           style={{ width: width }}
           {...inputProps}
         />
 
-        <button
-          type="button"
-          aria-label="toggle-button"
-          className={styles["toggle-button"]}
-          {...toggleButtonProps}
-        >
-          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
-        </button>
+        {isAutoComplete && (
+          <button
+            type="button"
+            aria-label="toggle-button"
+            className={styles["toggle-button"]}
+            {...toggleButtonProps}
+          >
+            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+          </button>
+        )}
       </div>
     </div>
   );

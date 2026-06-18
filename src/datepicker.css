@@ -1,0 +1,38 @@
+@layer vendors, overrides;
+@import "react-datepicker/dist/react-datepicker.css" layer(vendors);
+
+@layer overrides {
+  .react-datepicker {
+    background-color: var(--main-bg-color);
+    font-family: "Rawline";
+    border: 1px solid var(--main-purple);
+  }
+
+  .react-datepicker__time {
+    background-color: var(--main-bg-color);
+  }
+
+  .react-datepicker__header {
+    background-color: var(--main-white);
+  }
+
+  .react-datepicker-popper .react-datepicker__triangle {
+    stroke: var(--main-purple);
+  }
+
+  .react-datepicker-popper[data-placement^="bottom"]
+    .react-datepicker__triangle {
+    fill: var(--main-white);
+    color: var(--main-white);
+  }
+
+  .react-datepicker__day--selected,
+  .react-datepicker__time-list-item--selected {
+    background-color: var(--main-purple);
+  }
+
+  .react-datepicker__day:hover,
+  .react-datepicker__time-list-item:hover {
+    background-color: var(--secondary-purple);
+  }
+}

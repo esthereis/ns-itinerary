@@ -24,8 +24,6 @@
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: "Rawline_300", serif;
 }
@@ -34,5 +32,6 @@
   --main-bg-color: #f4f5fe;
   --main-white: #ffffff;
   --main-purple: #06064a;
+  --secondary-purple: #06064a60;
   --light-gray: #cccccc;
 }

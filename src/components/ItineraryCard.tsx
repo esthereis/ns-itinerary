@@ -1,6 +1,10 @@
 import AutoComplete from "./AutoComplete";
+import Button from "./Button";
+import CustomDatePicker from "./CustomDatePicker";
+import Input from "./Input";
 import InputPrefix from "./InputPrefix";
 import styles from "./ItineraryCard.module.css";
+import { FaExchangeAlt } from "react-icons/fa";
 
 type ItineraryCardProps = {
   departureList: string[];
@@ -20,6 +24,11 @@ export default function ItineraryCard({
         prefixElement={<InputPrefix />}
         width="280px"
       />
+
+      <Button width="50px" height="50px">
+        {<FaExchangeAlt />}
+      </Button>
+
       <AutoComplete
         items={arrivalList}
         label="Arrival"
@@ -27,6 +36,11 @@ export default function ItineraryCard({
         prefixElement={<InputPrefix />}
         width="280px"
       />
+
+      <CustomDatePicker label="Departure Date" />
+      <CustomDatePicker label="Departure Time" type="time" />
+
+      <Button width="180px">Plan your trip</Button>
     </div>
   );
 }

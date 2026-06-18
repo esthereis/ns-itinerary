@@ -4,7 +4,7 @@ import styles from "./MainCard.module.css";
 import buttonStyles from "./ToggleButton.module.css";
 import StationAutocomplete from "./StationAutocomplete";
 import ToggleButton from "./ToggleButton";
-import DatePicker from "./DatePicker";
+import CustomDatePicker from "./CustomDatePicker";
 import { TripContext } from "./TripContext";
 import { Context } from "../types/context";
 
@@ -32,12 +32,6 @@ export default function MainCard() {
           ]}
           onSelect={(option) => {
             setRoute(option);
-          }}
-        />
-
-        <DatePicker
-          onDateChange={(date) => {
-            setDateTime(date);
           }}
         />
 
