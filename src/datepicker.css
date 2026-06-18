@@ -35,4 +35,8 @@
   .react-datepicker__time-list-item:hover {
     background-color: var(--secondary-purple);
   }
+
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
 }

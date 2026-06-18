@@ -9,6 +9,7 @@ import "../datepicker.css";
 type CustomDatePickerProps = {
   label: string;
   type?: "date" | "time";
+  width?: string;
 };
 
 type CalendarWrapperProps = {
@@ -19,6 +20,7 @@ type CalendarWrapperProps = {
 export default function CustomDatePicker({
   label,
   type = "date",
+  width = "100%",
 }: CustomDatePickerProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [isOpen, setOpen] = useState<boolean>(false);
@@ -36,7 +38,7 @@ export default function CustomDatePicker({
   const isTime = type === "time";
 
   return (
-    <div className={styles["date-picker-wrapper"]}>
+    <div className={styles["date-picker-wrapper"]} style={{ width: width }}>
       <label
         data-prefix={true}
         className={`${inputStyles.label} ${styles.label}`}

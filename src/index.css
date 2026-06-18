@@ -28,6 +28,10 @@
   font-family: "Rawline_300", serif;
 }
 
+body {
+  margin: 0;
+}
+
 :root {
   --main-bg-color: #f4f5fe;
   --main-white: #ffffff;

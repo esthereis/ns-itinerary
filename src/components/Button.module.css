@@ -1,8 +1,15 @@
 .button {
   background-color: var(--main-purple);
   color: var(--main-white);
-  font-weight: 600;
+  font-family: "Rawline_600";
 
+  border: none;
   border-radius: 25px;
   flex-shrink: 0;
+
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--secondary-purple);
 }
