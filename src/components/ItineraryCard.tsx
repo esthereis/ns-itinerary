@@ -1,29 +1,32 @@
-import AutoComplete from "./AutoComplete";
 import Button from "./Button";
 import CustomDatePicker from "./CustomDatePicker";
-import InputPrefix from "./InputPrefix";
 import styles from "./ItineraryCard.module.css";
 import { FaExchangeAlt } from "react-icons/fa";
 import ToggleMenu from "./ToggleMenu";
 import { useState } from "react";
 import { TrainResponse } from "../types/train";
-import { getTrainInformation } from "../services/travel";
+import StationsAutoComplete from "./StationsAutoComplete";
+
+type SelectedRoute = {
+  routeAbbr: string;
+  station: string;
+};
 
 export default function ItineraryCard() {
-  const [departure, setDeparture] = useState<TrainResponse[]>([]);
-  const [arrival, setArrival] = useState<TrainResponse[]>([]);
-  const [abbreviations, setAbbreviations] = useState<{
-    departureAbbr: string;
-    arrivalAbbr: string;
-  }>({ departureAbbr: "", arrivalAbbr: "" });
+  const [departureStations, setDepartureStations] = useState<TrainResponse[]>(
+    [],
+  );
+  const [arrivalStations, setArrivalStations] = useState<TrainResponse[]>([]);
+  const [selectedArrival, setSelectedArrival] = useState<TrainResponse | null>(
+    null,
+  );
+  const [selectedDeparture, setSelectedDeparture] =
+    useState<TrainResponse | null>(null);
 
-  const updateRoute = (
-    inputValue: string,
-    setState: (routeList: TrainResponse[]) => void,
-  ) => {
-    getTrainInformation(inputValue).then((response) => {
-      setState(response);
-    });
+  const switchRoutes = () => {
+    const temporaryStation = selectedDeparture;
+    setSelectedDeparture(selectedArrival);
+    setSelectedArrival(temporaryStation);
   };
 
   return (
@@ -31,56 +34,30 @@ export default function ItineraryCard() {
       <ToggleMenu options={["Arrival", "Departure"]} />
       <div className={styles["form-wrapper"]}>
         <div className={styles["itinerary-buttons"]}>
-          <AutoComplete<TrainResponse>
-            width="280px"
-            items={departure}
+          <StationsAutoComplete
             label="Departure"
-            placeholder="Ex: Amsterdam"
-            prefixElement={
-              <InputPrefix cityAbreviation={abbreviations.departureAbbr} />
-            }
-            onInputValueChange={(inputValue: string) =>
-              updateRoute(inputValue, setDeparture)
-            }
-            itemToString={(departure: TrainResponse | null) =>
-              departure?.stationName ?? ""
-            }
-            onSelectedItemChange={(selected) =>
-              setAbbreviations((previous) => {
-                return {
-                  ...previous,
-                  departureAbbr: selected.selectedItem?.trainAbreviation ?? "",
-                };
-              })
-            }
+            placeholder="Ex: Amsterdam Centraal"
+            items={departureStations}
+            selectedRoute={selectedDeparture}
+            setStations={setDepartureStations}
+            setSelectedRoute={setSelectedDeparture}
           />
 
-          <Button width="50px" height="50px">
+          <Button
+            width="50px"
+            height="50px"
+            handleOnClick={() => switchRoutes()}
+          >
             {<FaExchangeAlt />}
           </Button>
 
-          <AutoComplete<TrainResponse>
-            width="280px"
-            items={arrival}
+          <StationsAutoComplete
             label="Arrival"
-            placeholder="Ex: Rotterdam"
-            prefixElement={
-              <InputPrefix cityAbreviation={abbreviations.arrivalAbbr} />
-            }
-            onInputValueChange={(inputValue: string) =>
-              updateRoute(inputValue, setArrival)
-            }
-            itemToString={(arrival: TrainResponse | null) =>
-              arrival?.stationName ?? ""
-            }
-            onSelectedItemChange={(selected) =>
-              setAbbreviations((previous) => {
-                return {
-                  ...previous,
-                  arrivalAbbr: selected.selectedItem?.trainAbreviation ?? "",
-                };
-              })
-            }
+            placeholder="Ex: Rotterdam Centraal"
+            items={arrivalStations}
+            selectedRoute={selectedArrival}
+            setStations={setArrivalStations}
+            setSelectedRoute={setSelectedArrival}
           />
         </div>
 

@@ -7,6 +7,7 @@ type AutoCompleteProps<T> = {
   itemToString: (item: T | null) => string;
   onInputValueChange: (inputValue: string) => void;
   onSelectedItemChange: (selected: UseComboboxSelectedItemChange<T>) => unknown;
+  inputValue: string;
 } & Pick<InputProps, "label" | "placeholder" | "prefixElement" | "width">;
 
 export default function AutoComplete<T>({
@@ -16,6 +17,7 @@ export default function AutoComplete<T>({
   prefixElement,
   onInputValueChange,
   onSelectedItemChange,
+  inputValue,
   ...props
 }: AutoCompleteProps<T>) {
   const {
@@ -32,6 +34,7 @@ export default function AutoComplete<T>({
     onSelectedItemChange,
     items,
     itemToString,
+    inputValue,
   });
 
   return (
