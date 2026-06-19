@@ -1,29 +1,23 @@
-import { useCombobox } from "downshift";
-import { useState } from "react";
+import { useCombobox, UseComboboxSelectedItemChange } from "downshift";
 import styles from "./AutoComplete.module.css";
-
 import Input, { InputProps } from "./Input";
 
-type AutoCompleteProps = {
-  items: string[];
+type AutoCompleteProps<T> = {
+  items: T[];
+  itemToString: (item: T | null) => string;
+  onInputValueChange: (inputValue: string) => void;
+  onSelectedItemChange: (selected: UseComboboxSelectedItemChange<T>) => unknown;
 } & Pick<InputProps, "label" | "placeholder" | "prefixElement" | "width">;
 
-function getList(list: string[], inputValue: string): string[] {
-  if (inputValue) {
-    return list.filter((item) =>
-      item.toLowerCase().includes(inputValue.toLocaleLowerCase()),
-    );
-  }
-  return list;
-}
-
-export default function AutoComplete({
+export default function AutoComplete<T>({
   items,
+  itemToString,
   width = "100%",
   prefixElement,
+  onInputValueChange,
+  onSelectedItemChange,
   ...props
-}: AutoCompleteProps) {
-  const [list, setList] = useState<string[]>(items);
+}: AutoCompleteProps<T>) {
   const {
     isOpen,
     getLabelProps,
@@ -33,12 +27,11 @@ export default function AutoComplete({
     getMenuProps,
   } = useCombobox({
     onInputValueChange({ inputValue }) {
-      setList(getList(items, inputValue));
+      onInputValueChange(inputValue);
     },
+    onSelectedItemChange,
     items,
-    itemToString(item) {
-      return item ?? "";
-    },
+    itemToString,
   });
 
   return (
@@ -61,13 +54,13 @@ export default function AutoComplete({
         {...getMenuProps()}
       >
         {isOpen &&
-          list.map((item, index) => (
+          items.map((item, index) => (
             <li
               data-prefix={!!prefixElement}
               key={index}
               {...getItemProps({ item, index })}
             >
-              {item}
+              {itemToString(item)}
             </li>
           ))}
       </ul>

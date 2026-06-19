@@ -13,6 +13,7 @@ export type InputProps = {
   placeholder: string;
   prefixElement?: ReactNode;
   width?: string;
+  handleOnChange?: () => void;
   type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
   isAutoComplete?: boolean;
   isOpen?: boolean;
@@ -35,6 +36,7 @@ export default function Input({
   type = "text",
   toggleButtonProps,
   width = "100%",
+  handleOnChange,
   isAutoComplete = false,
 }: InputProps) {
   return (
@@ -57,6 +59,7 @@ export default function Input({
           placeholder={placeholder}
           className={styles.input}
           style={{ width: width }}
+          onChange={() => handleOnChange?.()}
           {...inputProps}
         />
 

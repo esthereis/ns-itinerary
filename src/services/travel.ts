@@ -4,25 +4,34 @@ import { TripParams, TripResponse, Trip, Leg } from "../types/trip";
 import { axiosInstance } from "../utils/axiosInstance";
 
 export async function getTrainInformation(
-  searchTerm: string
-): Promise<TrainResponse[] | undefined> {
-  if (searchTerm.length >= 2) {
-    const response = await axiosInstance.get<TrainApiResponse>(`/v2/stations`, {
-      params: {
-        q: searchTerm,
-        limit: 10,
-      },
-    });
+  searchTerm: string,
+): Promise<TrainResponse[]> {
+  try {
+    if (searchTerm.length >= 2) {
+      const response = await axiosInstance.get<TrainApiResponse>(
+        `/v2/stations`,
+        {
+          params: {
+            q: searchTerm,
+            limit: 10,
+          },
+        },
+      );
 
-    const normalizedResponse = response.data.payload.map((train) => {
-      return {
-        trainCode: train.UICCode,
-        stationName: train.namen.lang,
-      } as TrainResponse;
-    });
+      const normalizedResponse = response.data.payload.map((train) => {
+        return {
+          trainCode: train.UICCode,
+          stationName: train.namen.lang,
+          trainAbreviation: train.code,
+        } as TrainResponse;
+      });
 
-    return normalizedResponse;
+      return normalizedResponse;
+    }
+  } catch (error) {
+    console.error("Failed to retrieve station list.");
   }
+  return [] as TrainResponse[];
 }
 
 export async function getTripData({

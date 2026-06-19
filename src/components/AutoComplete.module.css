@@ -20,6 +20,7 @@
 
 .stations-list[data-active="false"] {
   display: none;
+  border: none;
 }
 
 .stations-list li[data-prefix="false"] {
