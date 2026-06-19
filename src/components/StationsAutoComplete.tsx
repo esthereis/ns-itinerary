@@ -1,16 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
-import { TrainResponse } from "../types/train";
+import { StationName } from "../types/train";
 import AutoComplete from "./AutoComplete";
 import InputPrefix from "./InputPrefix";
-import { getTrainInformation } from "../services/travel";
+import { getStations } from "../services/travel";
 
 type StationsAutoCompleteProps = {
   label: string;
   placeholder: string;
-  items: TrainResponse[];
-  selectedRoute: TrainResponse | null;
-  setStations: (stations: TrainResponse[]) => void;
-  setSelectedRoute: Dispatch<SetStateAction<TrainResponse | null>>;
+  items: StationName[];
+  selectedRoute: StationName | null;
+  setStations: (stations: StationName[]) => void;
+  setSelectedRoute: Dispatch<SetStateAction<StationName | null>>;
 };
 
 export default function StationsAutoComplete({
@@ -23,21 +23,23 @@ export default function StationsAutoComplete({
 }: StationsAutoCompleteProps) {
   const updateStations = (
     inputValue: string,
-    setState: (stations: TrainResponse[]) => void,
+    setState: (stations: StationName[]) => void,
   ) => {
-    getTrainInformation(inputValue).then((response) => {
+    getStations(inputValue).then((response) => {
       setState(response);
     });
   };
 
   return (
-    <AutoComplete<TrainResponse>
+    <AutoComplete<StationName>
       width="280px"
       items={items}
       label={label}
       placeholder={placeholder}
       prefixElement={
-        <InputPrefix cityAbreviation={selectedRoute?.trainAbreviation ?? ""} />
+        <InputPrefix
+          cityAbreviation={selectedRoute?.stationAbreviation ?? ""}
+        />
       }
       onInputValueChange={(inputValue: string) => {
         setSelectedRoute((previous) => {
@@ -46,15 +48,15 @@ export default function StationsAutoComplete({
             return { ...previous, stationName: inputValue };
           }
           return {
-            trainCode: "",
+            stationCode: "",
             stationName: inputValue,
-            trainAbreviation: "",
+            stationAbreviation: "",
           };
         });
 
         updateStations(inputValue, setStations);
       }}
-      itemToString={(departure: TrainResponse | null) =>
+      itemToString={(departure: StationName | null) =>
         departure?.stationName ?? ""
       }
       onSelectedItemChange={(selected) =>

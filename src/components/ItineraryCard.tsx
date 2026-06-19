@@ -4,7 +4,7 @@ import styles from "./ItineraryCard.module.css";
 import { FaExchangeAlt } from "react-icons/fa";
 import ToggleMenu from "./ToggleMenu";
 import { useState } from "react";
-import { TrainResponse } from "../types/train";
+import { StationName } from "../types/train";
 import StationsAutoComplete from "./StationsAutoComplete";
 
 type SelectedRoute = {
@@ -13,15 +13,13 @@ type SelectedRoute = {
 };
 
 export default function ItineraryCard() {
-  const [departureStations, setDepartureStations] = useState<TrainResponse[]>(
-    [],
-  );
-  const [arrivalStations, setArrivalStations] = useState<TrainResponse[]>([]);
-  const [selectedArrival, setSelectedArrival] = useState<TrainResponse | null>(
+  const [departureStations, setDepartureStations] = useState<StationName[]>([]);
+  const [arrivalStations, setArrivalStations] = useState<StationName[]>([]);
+  const [selectedArrival, setSelectedArrival] = useState<StationName | null>(
     null,
   );
   const [selectedDeparture, setSelectedDeparture] =
-    useState<TrainResponse | null>(null);
+    useState<StationName | null>(null);
 
   const switchRoutes = () => {
     const temporaryStation = selectedDeparture;

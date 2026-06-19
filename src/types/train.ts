@@ -6,8 +6,8 @@ export type TrainApiResponse = {
   }[];
 };
 
-export type TrainResponse = {
-  trainCode: string;
+export type StationName = {
+  stationCode: string;
   stationName: string;
-  trainAbreviation: string;
+  stationAbreviation: string;
 };
