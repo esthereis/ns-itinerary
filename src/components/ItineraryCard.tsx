@@ -4,32 +4,33 @@ import styles from "./ItineraryCard.module.css";
 import { FaExchangeAlt } from "react-icons/fa";
 import ToggleMenu from "./ToggleMenu";
 import { useState } from "react";
-import { StationName } from "../types/train";
+import { Station } from "../types/train";
 import StationsAutoComplete from "./StationsAutoComplete";
 
-type SelectedRoute = {
-  routeAbbr: string;
-  station: string;
-};
-
 export default function ItineraryCard() {
-  const [departureStations, setDepartureStations] = useState<StationName[]>([]);
-  const [arrivalStations, setArrivalStations] = useState<StationName[]>([]);
-  const [selectedArrival, setSelectedArrival] = useState<StationName | null>(
+  const [departureStations, setDepartureStations] = useState<Station[]>([]);
+  const [arrivalStations, setArrivalStations] = useState<Station[]>([]);
+  const [selectedArrival, setSelectedArrival] = useState<Station | null>(null);
+  const [selectedDeparture, setSelectedDeparture] = useState<Station | null>(
     null,
   );
-  const [selectedDeparture, setSelectedDeparture] =
-    useState<StationName | null>(null);
 
   const switchRoutes = () => {
-    const temporaryStation = selectedDeparture;
     setSelectedDeparture(selectedArrival);
-    setSelectedArrival(temporaryStation);
+    setSelectedArrival(selectedDeparture);
   };
+
+  const planTrip = () => {};
 
   return (
     <div className={styles["card-wrapper"]}>
-      <ToggleMenu options={["Arrival", "Departure"]} />
+      <ToggleMenu
+        options={[
+          { label: "Arrival", value: "arrival" },
+          { label: "Departure", value: "departure" },
+        ]}
+        handleOption={(option) => option.label}
+      />
       <div className={styles["form-wrapper"]}>
         <div className={styles["itinerary-buttons"]}>
           <StationsAutoComplete
@@ -62,7 +63,9 @@ export default function ItineraryCard() {
         <CustomDatePicker label="Departure Date" width="280px" />
         <CustomDatePicker label="Departure Time" type="time" width="280px" />
 
-        <Button width="180px">Plan your trip</Button>
+        <Button width="180px" handleOnClick={() => planTrip()}>
+          Plan your trip
+        </Button>
       </div>
     </div>
   );

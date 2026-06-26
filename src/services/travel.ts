@@ -1,5 +1,5 @@
 import { TrainApiResponse } from "../types/train";
-import { StationName as StationResponse } from "../types/train";
+import { Station as StationResponse } from "../types/train";
 import { TripParams, TripResponse, Trip, Leg } from "../types/trip";
 import { axiosInstance } from "../utils/axiosInstance";
 

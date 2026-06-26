@@ -6,7 +6,7 @@ export type TrainApiResponse = {
   }[];
 };
 
-export type StationName = {
+export type Station = {
   stationCode: string;
   stationName: string;
   stationAbreviation: string;

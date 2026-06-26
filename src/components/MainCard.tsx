@@ -5,7 +5,7 @@ import buttonStyles from "./ToggleButton.module.css";
 import StationAutocomplete from "./StationAutocomplete";
 import ToggleButton from "./ToggleButton";
 import { TripContext } from "./TripContext";
-import { Context } from "../types/context";
+import { TripContextProps } from "../types/tripContextProps";
 
 export default function MainCard() {
   const [origin, setOrigin] = useState<string>("");
@@ -14,7 +14,7 @@ export default function MainCard() {
   const [route, setRoute] = useState<string>("departure");
   const [clicked, setClicked] = useState<boolean>(false);
 
-  const { planJourney } = useContext(TripContext) as Context;
+  const { planJourney } = useContext(TripContext) as TripContextProps;
 
   return (
     <div className={`${styles.card} ${clicked && styles.transition}`}>

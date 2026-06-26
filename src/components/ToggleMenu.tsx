@@ -2,11 +2,15 @@ import { useState } from "react";
 import Button from "./Button";
 import styles from "./ToggleMenu.module.css";
 
-type ToggleMenuProps = {
-  options: string[];
+type ToggleMenuProps<T> = {
+  options: T[];
+  handleOption: (option: T) => string;
 };
 
-export default function ToggleMenu({ options }: ToggleMenuProps) {
+export default function ToggleMenu<T>({
+  options,
+  handleOption,
+}: ToggleMenuProps<T>) {
   const [selected, setSelected] = useState<number>(0);
 
   const selectOption = (index: number) => {
@@ -23,7 +27,7 @@ export default function ToggleMenu({ options }: ToggleMenuProps) {
           height="36px"
           width="130px"
         >
-          {option}
+          {handleOption?.(option) ?? ""}
         </Button>
       ))}
     </div>

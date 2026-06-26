@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { StationName } from "../types/train";
+import { Station } from "../types/train";
 import AutoComplete from "./AutoComplete";
 import InputPrefix from "./InputPrefix";
 import { getStations } from "../services/travel";
@@ -7,10 +7,10 @@ import { getStations } from "../services/travel";
 type StationsAutoCompleteProps = {
   label: string;
   placeholder: string;
-  items: StationName[];
-  selectedRoute: StationName | null;
-  setStations: (stations: StationName[]) => void;
-  setSelectedRoute: Dispatch<SetStateAction<StationName | null>>;
+  items: Station[];
+  selectedRoute: Station | null;
+  setStations: (stations: Station[]) => void;
+  setSelectedRoute: Dispatch<SetStateAction<Station | null>>;
 };
 
 export default function StationsAutoComplete({
@@ -23,7 +23,7 @@ export default function StationsAutoComplete({
 }: StationsAutoCompleteProps) {
   const updateStations = (
     inputValue: string,
-    setState: (stations: StationName[]) => void,
+    setState: (stations: Station[]) => void,
   ) => {
     getStations(inputValue).then((response) => {
       setState(response);
@@ -31,7 +31,7 @@ export default function StationsAutoComplete({
   };
 
   return (
-    <AutoComplete<StationName>
+    <AutoComplete<Station>
       width="280px"
       items={items}
       label={label}
@@ -56,9 +56,7 @@ export default function StationsAutoComplete({
 
         updateStations(inputValue, setStations);
       }}
-      itemToString={(departure: StationName | null) =>
-        departure?.stationName ?? ""
-      }
+      itemToString={(departure: Station | null) => departure?.stationName ?? ""}
       onSelectedItemChange={(selected) =>
         setSelectedRoute(selected.selectedItem)
       }

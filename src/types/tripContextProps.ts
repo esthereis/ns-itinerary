@@ -1,7 +1,7 @@
 import { TripParams } from "./trip";
 import { Trip } from "./trip";
 
-export type Context = {
-  trips?: Trip[];
+export type TripContextProps = {
+  trips: Trip[];
   planJourney: ({ origin, destiny, dateTime, route }: TripParams) => void;
 };
