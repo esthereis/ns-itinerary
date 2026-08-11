@@ -1,65 +1,47 @@
-import { useMemo, useState } from "react";
+import { Leg } from "../types/trip";
 import styles from "./TripCard.module.css";
-import { Trip } from "../types/trip";
-import { formatTime, formatDuration } from "../utils/date";
-import { FiArrowRight, FiClock, FiShuffle } from "react-icons/fi";
+import { FaMapMarkerAlt, FaRegDotCircle, FaRandom } from "react-icons/fa";
 
-type Props = {
-  trip: Trip;
+type TripCardProps = {
+  departureTime: string;
+  arrivalTime: string;
+  legs: Leg[] | undefined;
+  onSelect: () => void;
 };
 
-export default function TripCard({ trip }: Props) {
-  const [legsClicked, setLegsClicked] = useState<boolean>(false);
-
-  const [departure, arrival, duration, legs] = useMemo(() => {
-    if (!trip) {
-      return [];
-    }
-    const departureTime = formatTime(trip.departureTime);
-    const arrivalTime = formatTime(trip.arrivalTime);
-    const duration = formatDuration(trip.duration);
-    const legs = trip.legs;
-
-    return [departureTime, arrivalTime, duration, legs];
-  }, [trip]);
-
+export default function TripCard({
+  departureTime,
+  arrivalTime,
+  legs,
+  onSelect,
+}: TripCardProps) {
   return (
-    <div className={styles.tripCard}>
-      <div className={styles.tripDetails}>
-        <span className={styles.time}>{departure}</span>
-        <FiArrowRight />
-        <span className={styles.time}>{arrival}</span>
+    <div className={styles["trip-card"]} onClick={() => onSelect()}>
+      <div className={styles.time}>
+        <span>{departureTime}</span>
+        <span>{arrivalTime}</span>
       </div>
 
-      <div className={styles.tripDetails}>
-        <FiClock />
-        <p>{duration}</p>
-      </div>
+      <div className={styles["legs-wrapper"]}>
+        <FaRegDotCircle />
 
-      {legs && (
-        <div
-          onClick={() => {
-            setLegsClicked(!legsClicked);
-          }}
-          className={styles.tripDetails}
-        >
-          <p>{legs?.length}</p>
-          <FiShuffle />
+        <div className={styles.legs}>
+          {legs &&
+            legs.map((leg, index) => (
+              <div className={styles.column} key={leg.key}>
+                <div className={styles["leg-row"]}>
+                  <div className={styles["leg-line"]} />
+                  {index !== legs.length - 1 && <FaRandom />}
+                </div>
+                {leg.origin}
+                {leg.destiny}
+              </div>
+            ))}
+          <div className={styles["leg-line"]} />
         </div>
-      )}
 
-      {legsClicked &&
-        legs?.map((leg) => {
-          return (
-            <div>
-              <p>{leg.origin}</p>
-              <p>{formatTime(leg.departureTime)}</p>
-              <p>{leg.destiny}</p>
-              <p>{formatTime(leg.arrivalTime)}</p>
-              <p>{formatDuration(leg.duration)}</p>
-            </div>
-          );
-        })}
+        <FaMapMarkerAlt />
+      </div>
     </div>
   );
 }

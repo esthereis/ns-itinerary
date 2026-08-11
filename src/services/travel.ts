@@ -71,7 +71,7 @@ function normalizeResponse(trip: TripResponse, legs: Leg[] | undefined): Trip {
 }
 
 function getLegs(trip: TripResponse): Leg[] | undefined {
-  return trip.legs.length > 1
+  return trip.legs.length >= 1
     ? trip.legs.map((leg, index) => {
         return {
           key: `${index}${trip.checksum}`,

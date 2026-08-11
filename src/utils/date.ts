@@ -14,3 +14,16 @@ export function formatDuration(duration: number): string {
     return `${duration}min`;
   }
 }
+
+export const getDayOrTime = (
+  date: Date | string,
+  filter: "day" | "time",
+): string => {
+  const day = date.toString().slice(0, 10);
+  const time = date.toString().slice(11, 16);
+
+  if (filter === "day") {
+    return day;
+  }
+  return time;
+};

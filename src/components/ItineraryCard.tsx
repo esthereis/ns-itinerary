@@ -6,6 +6,7 @@ import ToggleMenu from "./ToggleMenu";
 import { useState } from "react";
 import { Station } from "../types/train";
 import StationsAutoComplete from "./StationsAutoComplete";
+import { useTripContext } from "./TripContext";
 
 export default function ItineraryCard() {
   const [departureStations, setDepartureStations] = useState<Station[]>([]);
@@ -14,13 +15,30 @@ export default function ItineraryCard() {
   const [selectedDeparture, setSelectedDeparture] = useState<Station | null>(
     null,
   );
+  const [route, setRoute] = useState<string>("arrival");
+  const [date, setDate] = useState<{ day: Date; time: Date }>({
+    day: new Date(),
+    time: new Date(),
+  });
+  const { planJourney } = useTripContext();
 
   const switchRoutes = () => {
     setSelectedDeparture(selectedArrival);
     setSelectedArrival(selectedDeparture);
   };
 
-  const planTrip = () => {};
+  const handleOnClick = () => {
+    if (!selectedDeparture?.stationCode || !selectedArrival?.stationCode) {
+      return;
+    }
+
+    planJourney({
+      origin: selectedDeparture?.stationCode,
+      destiny: selectedArrival?.stationCode,
+      dateTime: date.day,
+      route: route,
+    });
+  };
 
   return (
     <div className={styles["card-wrapper"]}>
@@ -30,7 +48,9 @@ export default function ItineraryCard() {
           { label: "Departure", value: "departure" },
         ]}
         handleOption={(option) => option.label}
+        handleSelection={(selection) => setRoute(selection.value)}
       />
+
       <div className={styles["form-wrapper"]}>
         <div className={styles["itinerary-buttons"]}>
           <StationsAutoComplete
@@ -63,7 +83,7 @@ export default function ItineraryCard() {
         <CustomDatePicker label="Departure Date" width="280px" />
         <CustomDatePicker label="Departure Time" type="time" width="280px" />
 
-        <Button width="180px" handleOnClick={() => planTrip()}>
+        <Button width="180px" handleOnClick={() => handleOnClick()}>
           Plan your trip
         </Button>
       </div>

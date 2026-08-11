@@ -1,0 +1,61 @@
+.trip-details-card {
+  min-width: 400px;
+  padding: 1.5rem;
+
+  background-color: var(--main-white);
+  border: 1px solid var(--main-purple);
+  border-radius: 25px;
+
+  height: calc(100vh - 170px - 32px);
+}
+
+.time-line {
+  height: 100%;
+  width: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  gap: 2rem;
+  height: 100%;
+}
+
+.hour {
+  max-width: 20px;
+}
+
+.checkpoint-wrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: calc(100% - 14px);
+}
+
+.vertical-line {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
+  height: 100%;
+  width: 2px;
+  background-color: var(--main-purple);
+
+  flex: 1;
+}
