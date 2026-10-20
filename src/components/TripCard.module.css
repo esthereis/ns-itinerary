@@ -10,11 +10,7 @@
 
   display: flex;
   flex-direction: column;
-}
-
-.time {
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .legs-wrapper {
@@ -38,12 +34,32 @@
 
 .legs {
   display: flex;
-  align-items: center;
+}
 
-  flex: 1;
+.leg-line-wrapper {
+  width: 100%;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .leg-line {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-50%, -50%);
+
   border-bottom: 1px solid var(--main-purple);
-  flex: 1;
+
+  width: calc(100% - 16px);
+}
+
+.icons {
+  align-self: center;
+}
+
+.station-names {
+  text-align: center;
 }

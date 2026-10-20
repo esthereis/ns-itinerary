@@ -13,7 +13,7 @@ type LegPathProps = {
 function LegPath({ time, stationName, isLastDestiny = false }: LegPathProps) {
   return (
     <div className={styles.row}>
-      <span>{time}</span>
+      <span className={styles["path-time"]}>{time}</span>
       {isLastDestiny ? <FaRegDotCircle /> : <VerticalLine />}
       <span>{stationName}</span>
     </div>

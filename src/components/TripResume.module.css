@@ -1,3 +1,7 @@
+.path-time {
+  width: 3rem;
+}
+
 .trip-details-card {
   min-width: 400px;
   padding: 1.5rem;
@@ -26,10 +30,10 @@
 .row {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  gap: 1.5rem;
 
-  gap: 2rem;
   height: 100%;
+  width: 100%;
 }
 
 .hour {
