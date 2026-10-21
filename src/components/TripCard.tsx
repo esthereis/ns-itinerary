@@ -1,7 +1,14 @@
 import { Leg } from "../types/trip";
 import styles from "./TripCard.module.css";
-import { FaMapMarkerAlt, FaRegDotCircle, FaRandom } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaRegDotCircle,
+  FaRandom,
+  FaBusAlt,
+  FaTrain,
+} from "react-icons/fa";
 import { getDayOrTime } from "../utils/date";
+import { ReactNode } from "react";
 
 type TripCardProps = {
   departureTime: string;
@@ -12,24 +19,44 @@ type TripCardProps = {
 
 type LegPathProps = {
   time: string;
-  stationName: string;
-  type: "departure" | "arrival" | "leg";
+  stationName?: string;
+  pathType: "departure" | "arrival" | "leg";
+  transportType: string;
+  transportCode?: string;
 };
-//TODO: MODIFICAR TRIP CARD, para representar o tipo de transporte, exemplo: trem ou metrô ao invés do nome das estações, conferir: network --> preview --> legs --> index -->product --> shortCatergoryName e type
-function LegPath({ time, stationName, type }: LegPathProps) {
+
+function LegPath({
+  time,
+  stationName,
+  pathType,
+  transportType,
+  transportCode,
+}: LegPathProps) {
+  const transportTypes: Record<string, ReactNode> = {
+    train: <FaTrain />,
+    bus: <FaBusAlt />,
+  };
+
+  const icon: ReactNode = transportTypes[transportType.toLocaleLowerCase()];
+
   return (
     <div className={styles.column}>
       <span>{time}</span>
 
       <div className={styles["leg-line-wrapper"]}>
-        {type === "departure" && <FaRegDotCircle className={styles.icons} />}
-        {type === "leg" && <FaRandom />}
-        {type === "arrival" && <FaMapMarkerAlt />}
+        {pathType === "departure" && (
+          <FaRegDotCircle className={styles.icons} />
+        )}
+        {pathType === "leg" && <FaRandom />}
+        {pathType === "arrival" && <FaMapMarkerAlt />}
 
-        {type !== "arrival" && <div className={styles["leg-line"]} />}
+        {pathType !== "arrival" && <div className={styles["leg-line"]} />}
       </div>
-
-      <span className={styles["station-names"]}>{stationName}</span>
+      {stationName && (
+        <span className={styles["station-names"]}>{stationName}</span>
+      )}
+      {transportCode && <span>{icon ?? transportType}</span>}
+      {transportCode && <span>{transportCode}</span>}
     </div>
   );
 }
@@ -51,27 +78,34 @@ export default function TripCard({
       <div className={styles.legs}>
         <LegPath
           time={departureTime}
-          type="departure"
+          pathType="departure"
           stationName={legs[0].origin}
+          transportType={legs[0].type}
+          transportCode={legs[0].categoryCode}
         />
 
         {legs &&
           legs?.length > 1 &&
           legs.map((leg, index) => {
-            return (
-              <LegPath
-                key={index}
-                time={getDayOrTime(leg.arrivalTime, "time")}
-                type="leg"
-                stationName={leg.destiny}
-              />
-            );
+            if (index < legs.length - 1)
+              return (
+                <LegPath
+                  key={index}
+                  time={getDayOrTime(leg.arrivalTime, "time")}
+                  pathType="leg"
+                  stationName={leg.destiny}
+                  transportType={leg.type}
+                  transportCode={leg.categoryCode}
+                />
+              );
           })}
 
         <LegPath
           time={arrivalTime}
-          type="arrival"
+          pathType="arrival"
           stationName={legs[destinyLenght - 1].destiny}
+          transportType={legs[destinyLenght - 1].type}
+          transportCode={legs[destinyLenght - 1].categoryCode}
         />
       </div>
     </div>
