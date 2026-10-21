@@ -80,6 +80,8 @@ function getLegs(trip: TripResponse): Leg[] | undefined {
           departureTime: leg.origin.plannedDateTime,
           arrivalTime: leg.destination.plannedDateTime,
           duration: leg.duration.value,
+          type: leg.product.type,
+          categoryCode: leg.product.categoryCode,
         } as Leg;
       })
     : undefined;
