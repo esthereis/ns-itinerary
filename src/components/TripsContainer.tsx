@@ -12,8 +12,8 @@ export default function TripsContainer() {
       {trips.map((trip: Trip) => (
         <TripCard
           key={trip.key}
-          arrivalTime={getDayOrTime(trip.departureTime, "time")}
-          departureTime={getDayOrTime(trip.arrivalTime, "time")}
+          arrivalTime={getDayOrTime(trip.arrivalTime, "time")}
+          departureTime={getDayOrTime(trip.departureTime, "time")}
           legs={trip.legs}
           onSelect={() => setSelectedTrip(trip)}
         />

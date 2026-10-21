@@ -15,7 +15,7 @@ type LegPathProps = {
   stationName: string;
   type: "departure" | "arrival" | "leg";
 };
-
+//TODO: MODIFICAR TRIP CARD, para representar o tipo de transporte, exemplo: trem ou metrô ao invés do nome das estações, conferir: network --> preview --> legs --> index --> shortCatergoryName e type
 function LegPath({ time, stationName, type }: LegPathProps) {
   return (
     <div className={styles.column}>
@@ -45,6 +45,7 @@ export default function TripCard({
   }
 
   const destinyLenght = legs.length;
+  console.log(legs);
   return (
     <div className={styles["trip-card"]} onClick={() => onSelect()}>
       <div className={styles.legs}>
