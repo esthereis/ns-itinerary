@@ -1,4 +1,4 @@
-import { Leg } from "../types/trip";
+import { Leg, Note } from "../types/trip";
 import styles from "./TripCard.module.css";
 import {
   FaMapMarkerAlt,
@@ -22,7 +22,7 @@ type LegPathProps = {
   stationName?: string;
   pathType: "departure" | "arrival" | "leg";
   transportType: string;
-  transportCode?: string;
+  notes?: string[];
 };
 
 function LegPath({
@@ -30,7 +30,7 @@ function LegPath({
   stationName,
   pathType,
   transportType,
-  transportCode,
+  notes,
 }: LegPathProps) {
   const transportTypes: Record<string, ReactNode> = {
     train: <FaTrain />,
@@ -55,8 +55,9 @@ function LegPath({
       {stationName && (
         <span className={styles["station-names"]}>{stationName}</span>
       )}
-      {transportCode && <span>{icon ?? transportType}</span>}
-      {transportCode && <span>{transportCode}</span>}
+      {transportType && <span>{icon ?? transportType}</span>}
+
+      {notes && notes.map((note, index) => <span key={index}>{note}</span>)}
     </div>
   );
 }
@@ -72,7 +73,7 @@ export default function TripCard({
   }
 
   const destinyLenght = legs.length;
-  console.log(legs);
+
   return (
     <div className={styles["trip-card"]} onClick={() => onSelect()}>
       <div className={styles.legs}>
@@ -81,7 +82,7 @@ export default function TripCard({
           pathType="departure"
           stationName={legs[0].origin}
           transportType={legs[0].type}
-          transportCode={legs[0].categoryCode}
+          notes={legs[0].notes}
         />
 
         {legs &&
@@ -95,7 +96,7 @@ export default function TripCard({
                   pathType="leg"
                   stationName={leg.destiny}
                   transportType={leg.type}
-                  transportCode={leg.categoryCode}
+                  notes={leg.notes}
                 />
               );
           })}
@@ -105,7 +106,7 @@ export default function TripCard({
           pathType="arrival"
           stationName={legs[destinyLenght - 1].destiny}
           transportType={legs[destinyLenght - 1].type}
-          transportCode={legs[destinyLenght - 1].categoryCode}
+          notes={legs[destinyLenght - 1].notes}
         />
       </div>
     </div>

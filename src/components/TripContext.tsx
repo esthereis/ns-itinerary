@@ -25,6 +25,7 @@ export default function TripProvider({ children }: Props) {
     dateTime,
     route,
   }: TripParams) => {
+    console.log(origin, destiny, dateTime, route);
     const response = await getTripData({
       origin,
       destiny,

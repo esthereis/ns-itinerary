@@ -1,6 +1,6 @@
 import { TrainApiResponse } from "../types/train";
 import { Station as StationResponse } from "../types/train";
-import { TripParams, TripResponse, Trip, Leg } from "../types/trip";
+import { TripParams, TripResponse, Trip, Leg, Note } from "../types/trip";
 import { axiosInstance } from "../utils/axiosInstance";
 
 export async function getStations(
@@ -52,6 +52,7 @@ export async function getTripData({
 
   const normalizedResponse = response.data.trips.map((trip: TripResponse) => {
     const legs = getLegs(trip);
+    console.log(legs);
     const wholeTrip = normalizeResponse(trip, legs);
     return wholeTrip;
   });
@@ -68,11 +69,12 @@ function normalizeResponse(trip: TripResponse, legs: Leg[] | undefined): Trip {
     duration: trip.actualDurationInMinutes,
     legs: legs,
   } as Trip;
-}
+} //TODO: conseguir tipar corretamente Notes para conseguir passar pra Legs na sua criação, o objeto de array Notes
 
 function getLegs(trip: TripResponse): Leg[] | undefined {
   return trip.legs.length >= 1
     ? trip.legs.map((leg, index) => {
+        const notes = getLegNotes(leg);
         return {
           key: `${index}${trip.checksum}`,
           origin: leg.origin.name,
@@ -81,8 +83,15 @@ function getLegs(trip: TripResponse): Leg[] | undefined {
           arrivalTime: leg.destination.plannedDateTime,
           duration: leg.duration.value,
           type: leg.product.type,
-          categoryCode: leg.product.categoryCode,
+          notes,
         } as Leg;
       })
     : undefined;
+}
+
+function getLegNotes(leg: TripResponse["legs"][0]): string[] {
+  return leg.product.notes.reduce((acc, cur) => {
+    cur.forEach((element) => acc.push(element.value));
+    return acc;
+  }, [] as string[]);
 }

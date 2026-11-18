@@ -14,6 +14,8 @@ export type Trip = {
   legs?: Leg[];
 };
 
+export type Note = Record<"value", string>;
+
 export type Leg = {
   key: string;
   origin: string;
@@ -21,7 +23,7 @@ export type Leg = {
   departureTime: Date | string;
   arrivalTime: Date | string;
   duration: number;
-  categoryCode: string;
+  notes: string[];
   type: string;
 };
 
@@ -32,6 +34,6 @@ export type TripResponse = {
     origin: { plannedDateTime: string; name: string };
     destination: { plannedDateTime: string; name: string };
     duration: { value: number };
-    product: { categoryCode: string; type: string };
+    product: { notes: Note[][]; type: string };
   }[];
 };
