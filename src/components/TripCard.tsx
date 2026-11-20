@@ -56,8 +56,6 @@ function LegPath({
         <span className={styles["station-names"]}>{stationName}</span>
       )}
       {transportType && <span>{icon ?? transportType}</span>}
-
-      {notes && notes.map((note, index) => <span key={index}>{note}</span>)}
     </div>
   );
 }
