@@ -4,34 +4,42 @@ import { useTripContext } from "./TripContext";
 import { FaRegDotCircle } from "react-icons/fa";
 import styles from "./TripResume.module.css";
 
-type LegPathProps = {
+type CheckPointsProps = {
   time: string;
   stationName: string;
   isLastDestiny?: boolean;
+  legDuration?: number;
   notes?: string[];
 };
 
-function LegPath({
-  time,
-  stationName,
-  isLastDestiny = false,
-  notes,
-}: LegPathProps) {
+function CheckPoints({ time, stationName }: CheckPointsProps) {
   return (
     <div className={styles.row}>
       <span className={styles["path-time"]}>{time}</span>
-      {isLastDestiny ? <FaRegDotCircle /> : <VerticalLine />}
+      <FaRegDotCircle />
       <span>{stationName}</span>
-      {notes && notes.map((note, index) => <span key={index}>{note}</span>)}
     </div>
   );
 }
 
-function VerticalLine() {
+type LegInfosProps = {
+  duration: number;
+  notes: string[];
+};
+
+function LegInfos({ duration, notes }: LegInfosProps) {
   return (
-    <div className={styles["checkpoint-wrapper"]}>
-      <FaRegDotCircle />
+    <div className={`${styles.row} ${styles.infos}`}>
+      <span className={styles["path-time"]}>{duration}</span>
+
       <div className={styles["vertical-line"]} />
+      {notes && (
+        <div className={styles.notes}>
+          {notes.map((note, index) => (
+            <span key={index}>{note}</span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -39,6 +47,7 @@ function VerticalLine() {
 export default function TripResume() {
   const { selectedTrip, trips } = useTripContext();
   const referenceTrip: Trip = selectedTrip ?? trips[0];
+  console.log(selectedTrip);
 
   if (!referenceTrip || !referenceTrip.legs) {
     return undefined;
@@ -49,25 +58,19 @@ export default function TripResume() {
   return (
     <div className={styles["trip-details-card"]}>
       <div className={styles["time-line"]}>
-        <LegPath
-          time={getDayOrTime(referenceTrip.departureTime, "time")}
-          stationName={referenceTrip.legs[0].origin}
-          notes={referenceTrip.legs[0].notes}
-        />
-        {referenceTrip.legs?.map((leg, index) => {
-          if (index > 0) {
-            return (
-              <LegPath
+        {selectedTrip?.legs?.map((leg, index) => {
+          return (
+            <>
+              <CheckPoints
                 key={index}
                 time={getDayOrTime(leg.departureTime, "time")}
                 stationName={leg.origin}
-                notes={leg.notes}
               />
-            );
-          }
-          return undefined;
+              <LegInfos duration={leg.duration} notes={leg.notes} />
+            </>
+          );
         })}
-        <LegPath
+        <CheckPoints
           time={getDayOrTime(referenceTrip.arrivalTime, "time")}
           isLastDestiny
           stationName={referenceTrip.legs[lastDestinyIndex].destiny}

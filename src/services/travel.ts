@@ -52,7 +52,6 @@ export async function getTripData({
 
   const normalizedResponse = response.data.trips.map((trip: TripResponse) => {
     const legs = getLegs(trip);
-    console.log(legs);
     const wholeTrip = normalizeResponse(trip, legs);
     return wholeTrip;
   });

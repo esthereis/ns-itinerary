@@ -25,13 +25,7 @@ type LegPathProps = {
   notes?: string[];
 };
 
-function LegPath({
-  time,
-  stationName,
-  pathType,
-  transportType,
-  notes,
-}: LegPathProps) {
+function LegPath({ time, stationName, pathType, transportType }: LegPathProps) {
   const transportTypes: Record<string, ReactNode> = {
     train: <FaTrain />,
     bus: <FaBusAlt />,
